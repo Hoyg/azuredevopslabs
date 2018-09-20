@@ -36,15 +36,13 @@ This lab covers both the approaches and the following tasks will be performed
 * Configure VSTS to integrate with Jenkins
 * Configure Release Management in VSTS to deploy the build artifacts from Jenkins
 
-### Prerequisites for the lab
+### Before you begin
 
 1. **Microsoft Azure Account**: You will need a valid and active Azure account for the Azure labs. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/){:target="_blank"}
     
 1. <a href="http://www.putty.org/" target="_blank"> Putty</a> a free SSH and Telnet client
 
-## Setting up Azure DevOps project
-
-1. Use the <a href="https://vstsdemogenerator.azurewebsites.net/?name=MyShuttleDocker&templateid=77373" target="_blank">Azure DevOps Demo Generator</a> to provision the MyShuttleDocker sample project on to your VSTS account
+1. Set up your Azure DevOps project using the **MyShuttleDocker** template in the <a href="https://vstsdemogenerator.azurewebsites.net/?name=MyShuttleDocker&templateid=77373" target="_blank">Azure DevOps Demo Generator</a>. We will use a Java web app that runs on Docker and connects to a MySQL backend
 
 ## Setting up the Jenkins VM
 
@@ -64,7 +62,7 @@ This lab covers both the approaches and the following tasks will be performed
    putty.exe -ssh -L 8080:localhost:8080 <username>@<ip address>
    ```
 
-   <a href="images/vmconnect_ssh2.png"><img class="thumbnail" src="images/vmconnect_ssh2.png" /></a>
+   <a href="images/ssh1.png"><img class="thumbnail" src="images/ssh1.png" /></a>
 
    > To run the above command, either the Putty.exe needs to be placed in the path selected in the Command Prompt or the full path of the Putty.exe need to be provided in the command.
 
@@ -73,8 +71,8 @@ This lab covers both the approaches and the following tasks will be performed
 1. Once the connection is successful, open a browser on the host machine and navigate to the URL [http://localhost:8080](http://localhost:8080). The **Getting Started** page for Jenkins will be displayed.
 
 1. The initial password needs to be provided in the **Getting Started** screen to unlock Jenkins. For security reasons, Jenkins will generate a password and save it in a file on the server.
-
-   ![Jenkins Initial Password](images/jenkinsinitialemptypwd.png)
+    <a href="images/jenkinsinitialemptypwd.png"><img class="thumbnail" src="images/jenkinsinitialemptypwd.png" alt="Jenkins Initial Password]"/></a>
+  
   
 1. Return to the **Putty** terminal and type the following command to open the password file and copy the password. Press the **Esc** button and then type **:q!** at the prompt to exit the vi editor without saving the file.
 
@@ -84,69 +82,70 @@ This lab covers both the approaches and the following tasks will be performed
 
 1. Return to the browser, paste the copied text in the Administrator password text box and click on the **Continue** button.
 
-    ![Unlock Jenkins - First Time](images/jenkinsinitialpwd.png)
+      <a href="images/jenkinsinitialpwd.png"><img class="thumbnail" src="images/jenkinsinitialpwd.png" alt="Unlock Jenkins - First Time]"/></a>
+  
 
     > Jenkins has a vast ecosystem with a strong and active open source community users contributing hundreds of useful plugins. While configuring Jenkins, choose between installing the most commonly used plugins or selected plugins.
 
 1. The Maven plugin is also required for the lab but will be installed later. Click on the **Install suggested plugins** option to initiate the configuration.
 
-    ![Customize Jenkins Plugins](images/customizejenkins-plugins.png)
+      <a href="images/customizejenkins-plugins.png"><img class="thumbnail" src="images/customizejenkins-plugins.png" alt="Customize Jenkins Plugins]"/></a>
+
 
 1. To work with Jenkins, a new `Admin` user needs to be created. Provide the *User name*, *Password*, *Full name* and *Email address* in the **Getting Started** screen and then click on the **Save and Finish** button.
 
-    ![Create Admin User for Jenkins](images/firstadminuser.png)
+      <a href="images/firstadminuser.png"><img class="thumbnail" src="images/firstadminuser.png" alt="Create Admin User for Jenkins]"/></a>
+
 
 1. Jenkins will now be ready for use. Click on the **Start using Jenkins** button to start using it.
 
-    ![Jenkins Ready](images/jenkinsready.png)
+    <a href="images/jenkinsready.png"><img class="thumbnail" src="images/jenkinsready.png" alt="Jenkins Ready]"/></a>
 
 ## Installing and Configuring Maven
 
 {% include note.html content= "Starting with Jenkins version 2, the Maven plugin is not installed by default. The plugin needs to be manually installed." %}
 
-1. Click the **Manage Jenkins** option on the Jenkins home page to navigate to the **Manage Jenkins** screen, the centralized one-stop-shop for all the Jenkins configuration. From this screen, the configuration of the Jenkins server, the installation and upgrades of plugins, keeping track of system load, managing distributed build servers can be managed.
+1. Click the **Manage Jenkins** option on the Jenkins home page to navigate to the **Manage Jenkins** screen.
 
-1. Click on the **Manage Plugins** option, select the **Available** tab and search for `maven-plugin` in the filter box.
+1. Select **Manage Plugins** and then select the **Available** tab and search for `maven-plugin` in the filter box.
 
-    ![Manage Jenkins](images/manage-jenkins1.png)
+    <a href="images/manage-jenkins1.png"><img class="thumbnail" src="images/manage-jenkins1.png" alt="Manage Jenkins]"/></a>
 
-1. Select the **Maven Integration Plugin** and click on the **Install without restart** button to install the plugin.
+1. Select the **Maven Integration Plugin** and select the **Install without restart** button to install the plugin.
 
-    ![Install Maven](images/installmavenplugin.png)
+    <a href="images/installmavenplugin.png"><img class="thumbnail" src="images/installmavenplugin.png" alt="Install Maven]"/></a>
 
-1. Once the plugin is installed, click on the **Global Tool Configuration** option.
+1. Once the plugin is installed, select the **Global Tool Configuration** option.
 
-    ![Global Tool Configuration](images/manage-tools-config.png)
+        <a href="images/manage-tools-config.png"><img class="thumbnail" src="images/manage-tools-config.png" alt="Global Tool Configuration]"/></a>
 
-   > Jenkins provides great out-of-the-box support for Maven. Since the Maven is not yet installed, it can be manually installed by extracting the `tar` file located in a shared folder. Alternatively, when the **Install automatically** option is selected in the **Global Tool Configuration** screen, Jenkins will download and install Maven from the Apache website when a build job requires it.
+   > Jenkins provides great out-of-the-box support for Maven. Since Maven is not yet installed, it can be manually installed by extracting the `tar` file located in a shared folder. Alternatively, when the **Install automatically** option is selected in the **Global Tool Configuration** screen, Jenkins will download and install Maven from the Apache website when a build job requires it.
 
-1. To install Maven, select the **Install automatically** option and click on the **Apply** button.
+1. To install Maven, select the **Install automatically** option and select the **Apply** button.
 
-   > The latest version of Maven at the time of writing the lab was 3.5
+   > The latest version of Maven at the time of writing this lab is 3.5.4
 
-    ![Maven Installer](images/maveninstallerconfig.png)
+    <a href="images/maveninstallerconfig.png"><img class="thumbnail" src="images/maveninstallerconfig.png" alt="Maven Installer]"/></a>
 
-1. Click on the **Back to Dashboard** button to return to the home page.
+1. Select the **Back to Dashboard** button to return to the home page.
 
 ## Creating a new build job in Jenkins
 
-1. From the Jenkins home page, click on the **New Item** option. Provide a name for the build definition, select the **Maven project** and click on the **OK** button.
+1. From the Jenkins home page, click  the **New Item** link. Provide a name for the build definition, select **Maven project** and click **OK**.
 
-   ![New Build Definition](images/newbuilddef.png)
+    <a href="images/newbuilddef.png"><img class="thumbnail" src="images/newbuilddef.png" alt="New Build Definition"/></a>
 
-1. Now scroll down to the **Source code Management** section. Select the **Git** option and provide the clone URL of the VSTS Git repo in the format
+1. Now scroll down to the **Source code Management** section. Select  **Git**  and provide the clone URL of the Azure DevOps Git repo in the format
 
-   `http://{your account name}.visualstudio.com/{team project name}/_git/MyShuttle`
+   `http://dev.azure.com/{your org name}{team project name}/_git/MyShuttleDocker`
 
    {% include note.html content="If you do not see **Git** under Source code management, you will need to install/enable the Git plugin as described [here](#additional-tasks)" %}
 
-   ![Configuring VSTS Git URL](images/jenkins-vstsrepo.png)
+   <a href="images/jenkins-vstsrepo.png"><img class="thumbnail" src="images/jenkins-vstsrepo.png" alt="Configuring VSTS Git URL"/></a>
 
-   The VSTS Git repos are private and requires user credentials to be provided to access the repository. If the Git credentials is not set already, it can be done from the VSTS.
+   If your Azure DevOps Git repo is private, you should provide the credentials to access the repository. If you do not have one or don't remember the credentials, go to your Azure Repo  and select the **Clone** option. Select **Generate Credentials** and enter a `User name` and `Password`. Click **OK** to save and exit.
 
-1. Go to your VSTS project page and select the **Clone** option, provide the `User name` and `Password` and then click on the **OK** button.
-
-   ![Generating Git Credentials](images/vsts-generategitcreds.png)
+    <a href="images/vsts-generategitcreds.png"><img class="thumbnail" src="images/vsts-generategitcreds.png" alt="Generating Git Credentials"/></a>
 
 1. Click on the **Add \| Jenkins** option to add a new credential. Provide the `User name` and `Password` created earlier and click the **Add** button to close the wizard
 
