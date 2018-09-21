@@ -149,37 +149,37 @@ This lab covers both the approaches and the following tasks will be performed
 
 1. Click on the **Add \| Jenkins** option to add a new credential. Provide the `User name` and `Password` created earlier and click the **Add** button to close the wizard
 
-    ![Adding Credentials to Jenkins](images/jenkinscredentials.png)
+    <a href="images/jenkinscredentials.png"><img class="thumbnail" src="images/jenkinscredentials.png" alt="Adding Credentials to Jenkins"/></a>
 
 1. Select the credential created in the previous step from the drop-down. The error message should disappear now.
 
-   ![VSTS Git config in Jenkins](images/jenksaddvstsgit.png)
+     <a href="images/jenksaddvstsgit.png"><img class="thumbnail" src="images/jenksaddvstsgit.png" alt="VSTS Git config in Jenkins"/></a>
 
    >The source code for this application has both unit tests and UI tests. Only the unit tests will be included in this lab.
 
 1. Scroll down to the **Build** section and provide the text `package -Dtest=FaresTest,SimpleTest` in the **Goals and options** field. Click on the **Save** button to navigate to the home page of the project.
 
-   ![Build Settings in Jenkins](images/jenkins-buildsettings.png)
+     <a href="images/jenkins-buildsettings.png"><img class="thumbnail" src="images/jenkins-buildsettings.png" alt="Build Settings in Jenkins"/></a>
 
 1. To configure the Post build actions in the **Post-Build Actions** section, click on the **Add post-build action** button and choose the **Archive the artifacts** option.
 
-   ![Post Build Action](images/jenkinspostbuildaction.png)
+   <a href="images/jenkinspostbuildaction.png"><img class="thumbnail" src="images/jenkinspostbuildaction.png" alt="Post Build Action"/></a>
 
 1. Enter  **target/*.war** in the **Files to archive** text box. Click on the **Save** button to save the settings and return to the project page.
 
-   ![Archive War](images/jenkinsarchiveartifacts.png)
+   <a href="images/jenkinsarchiveartifacts.png"><img class="thumbnail" src="images/jenkinsarchiveartifacts.png" alt="Archive War"/></a>
 
 1. Since the configuration is now completed, click on the **Build Now** option to initiate an Ad-hoc build.
 
    > The build progress will be displayed on the left pane in the **Build History** section
 
-   ![Running Ad-hoc Build](images/adhocbuild.png)
+   <a href="images/adhocbuild.png"><img class="thumbnail" src="images/adhocbuild.png" alt="Running Ad-hoc Build"/></a>
 
 1. To view the build details and the list of build artifacts, click on the build number displayed in the **Module Builds** section.
 
-   ![Build Details](images/builddetails.png)
+    <a href="images/builddetails.png"><img class="thumbnail" src="images/builddetails.png" alt="Build Details"/></a>
 
-   ![Build Artifacts](images/buildmodules.png)
+   <a href="images/buildmodules.png"><img class="thumbnail" src="images/buildmodules.png" alt="Build Details"/></a>
 
 1. Click on the **Test Results** option to view the results of the unit tests that were included in the build definition.
 
