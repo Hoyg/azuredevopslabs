@@ -6,7 +6,7 @@ permalink: /labs/vstsextend/jenkins/approach1/
 folder: /labs/vstsextend/jenkins/approach1/
 ---
 
-In this section, the Jenkins will be configured to run separately. A service hook will be configured in VSTS to trigger a Jenkins build whenever source code changes are pushed to a particular branch.
+In this section, Jenkins will be configured to run separately. A service hook will be configured in VSTS to trigger a Jenkins build whenever source code changes are pushed to a particular branch.
 
 1. To configure the service hook, navigate to the VSTS team project page, click on the Settings icon and choose the **Service Hooks** option
 

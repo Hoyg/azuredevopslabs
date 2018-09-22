@@ -12,13 +12,13 @@ Last updated : {{ "now" | date: "%b %d,%Y" }}
 
 [Jenkins](https://jenkins.io/){:target="_blank"} is a very popular Java-based open source continuous integration (CI) server that allows teams to continuously build applications across platforms.
 
-Visual Studio Team Services (VSTS) includes Team Build, a native CI build server that allows compilation of applications on Windows, Linux and Mac platforms. However, it also integrates well with Jenkins for teams who already use or prefer to use Jenkins for CI.
+Azure DevOps includes Team Build, a native CI build server that allows compilation of applications on Windows, Linux and Mac platforms. However, it also integrates well with Jenkins for teams who already use or prefer to use Jenkins for CI.
 
-There are two ways to integrate VSTS with Jenkins
+There are two ways to integrate Azure DevOps with Jenkins
 
-* One way is to completely **replace the VSTS Build with Jenkins**. This involves the configuration of a CI pipeline in Jenkins and a web hook in VSTS that invokes the CI process when source code is pushed by any member to a repository or a branch. The VSTS Release Management will be configured to connect to the Jenkins server through the configured Service Endpoint to fetch the compiled artifacts for the deployment.
+* One way is to completely **replace Azure Build Pipeline with Jenkins**. This involves the configuration of a CI pipeline in Jenkins and a web hook in Azure DevOps that invokes the CI process when source code is pushed by any member to a repository or a branch. Azure Pipeline will be configured to connect to the Jenkins server through the configured Service Endpoint to fetch the compiled artifacts for the deployment.
 
-* The alternate way is to **use Jenkins and Team Build together**. In this approach, a Jenkins build will be nested within the VSTS build. A build definition will be configured in the VSTS with a **Jenkins** task to queue a job in Jenkins that downloads the artifacts produced by the job and publish it to the VSTS or any shared folder. The VSTS Release Management will pick these build artifacts for deployment.
+* The alternate way is to **use Jenkins and Azure DevOps together**. In this approach, a Jenkins build will be nested within Azure DevOps. A build definition will be configured in Azure Pipeline with a **Jenkins** task to queue a job in Jenkins that downloads the artifacts produced by the job and publish it to the Azure DevOps or any shared folder. The Azure Pipeline will pick these build artifacts for deployment.
 
 While there are pros and cons with both the approaches, the latter approach has multiple benefits:
 
@@ -31,10 +31,10 @@ While there are pros and cons with both the approaches, the latter approach has 
 This lab covers both the approaches and the following tasks will be performed
 
 * Provision Jenkins on Azure VM using a Jenkins Template available on the Azure Marketplace
-* Configure Jenkins to work with Maven and VSTS
+* Configure Jenkins to work with Maven and Azure Pipeline
 * Create a build definition in Jenkins
-* Configure VSTS to integrate with Jenkins
-* Configure Release Management in VSTS to deploy the build artifacts from Jenkins
+* Configure Azure Pipeline to integrate with Jenkins
+* Configure a release pipeline in Azure Pipelines to deploy the build artifacts from Jenkins
 
 ### Before you begin
 
@@ -141,7 +141,7 @@ This lab covers both the approaches and the following tasks will be performed
 
    {% include note.html content="If you do not see **Git** under Source code management, you will need to install/enable the Git plugin as described [here](#additional-tasks)" %}
 
-   <a href="images/jenkins-vstsrepo.png"><img class="thumbnail" src="images/jenkins-vstsrepo.png" alt="Configuring VSTS Git URL"/></a>
+   <a href="images/jenkins-vstsrepo.png"><img class="thumbnail" src="images/jenkins-vstsrepo.png" alt="Configuring Azure DevOps Git URL"/></a>
 
    If your Azure DevOps Git repo is private, you should provide the credentials to access the repository. If you do not have one or don't remember the credentials, go to your Azure Repo  and select the **Clone** option. Select **Generate Credentials** and enter a `User name` and `Password`. Click **OK** to save and exit.
 
@@ -187,5 +187,5 @@ Next:
 
 ## Approach 1: [Replacing Azure Pipelines with Jenkins](./approach1)
 
-## Approach 2: [Wrapping Jenkins Job within the VSTS Build](./approach2)
+## Approach 2: [Wrapping Jenkins Job within Azure Pipelines](./approach2)
 
