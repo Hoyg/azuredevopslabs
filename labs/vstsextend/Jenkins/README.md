@@ -101,13 +101,15 @@ This lab covers both the approaches and the following tasks will be performed
 
     <a href="images/jenkinsready.png"><img class="thumbnail" src="images/jenkinsready.png" alt="Jenkins Ready]"/></a>
 
-## Installing and Configuring Maven
+## Installing and Configuring Plugins
 
-{% include note.html content= "Starting with Jenkins version 2, the Maven plugin is not installed by default. The plugin needs to be manually installed." %}
+1. Click **Manage Jenkins**  on the Jenkins home page to navigate to the **Manage Jenkins** screen.
 
-1. Click the **Manage Jenkins** option on the Jenkins home page to navigate to the **Manage Jenkins** screen.
+1. Select **Manage Plugins** and then select the **Available** tab and search for `team services` 
 
-1. Select **Manage Plugins** and then select the **Available** tab and search for `maven-plugin` in the filter box.
+1. Select **VS Team Services Continuous Deployment** plugin and select **Install without restart**
+
+1. Next we will enter the **Maven** plugin. Search for `maven-plugin`
 
     <a href="images/manage-jenkins1.png"><img class="thumbnail" src="images/manage-jenkins1.png" alt="Manage Jenkins]"/></a>
 

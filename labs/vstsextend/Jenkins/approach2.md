@@ -6,29 +6,33 @@ permalink: /labs/vstsextend/jenkins/approach2/
 folder: /labs/vstsextend/jenkins/approach2/
 ---
 
-In this section, Jenkins will be included as a job within a VSTS Team Build. The key benefit of this approach is the end-to-end traceability from the work items to the source code to the build and release provided by the VSTS.
+In this section, Jenkins will be included as a job within a Azure CI Pipeline. The key benefit of this approach is you can have end-to-end traceability from work items to source code to build and release pipelines.
 
-To begin, an endpoint to the Jenkins Server for communication with VSTS will be configured.
+To begin, an endpoint to the Jenkins Server for communication with Azure DevOps will be configured.
 
-1. In the **Admin \| Services** section, click on the **New Service Endpoint \| Jenkins** option to create a new endpoint.
+1. Go to your project settings. Select **Pipelines| Service connections**, click **New service connection** and choose **Jenkins** from the dropdown.
 
-1. In the **Add new Jenkins Connection** screen, provide a connection name, Jenkins server URL in the format `http://[server IP address or DNS name]` and Jenkins user name with password. Click on the **Verify Connection** button to validate the configuration and then click on the **Ok** button.
+1. Provide a connection name, Jenkins server URL in the format `http://[server IP address or DNS name]` and Jenkins user name with password. Select **Verify Connection** and validate the configuration. If it susscessful, then select **Ok**.
 
    ![Jenkins Endpoint](images/jenkinsendpoint.png)
 
    The next step would be to configure the build definition.
 
-1. Click on the **Build and Release** hub, select the Builds section and click on the **+New** button to create a new build Definition
+1. Go to Azure Pipelines| Builds, Click**+New**  and select **New build pipeline** to create a new build definition
 
-1. In the **Choose a template** window, select the out-of-the-box **Jenkins** template and click on the **Apply** button
+1. At the time of writing this lab, Azure Pipelines did not support Jenkins in YAML. Select **Visual Designer** to create a pipeline without a YAML. 
+
+1. Select Myshutte project and repository
+
+1. Scroll down and select the standard **Jenkins** template Click Apply 
 
     ![Jenkins Template](images/jenkinsbuildtemplate.png)
 
-1. In the *Process* step, provide a name for the definition, select Hosted Linux Preview as the Agent Queue, provide **MyShuttle** as the Job name and then select the Jenkins service endpoint created earlier.
+1. select Hosted Ubuntu for the Agent Queue, provide **MyShuttle** as the Job name and then select the Jenkins service endpoint created earlier.
 
     ![Jenkins Settings in Team Build](images/vsts-buildjenkinssettings.png)
 
-1. Next, select the **Get Sources** step. Since Jenkins is being used for the build, there is no need to download the source code to the VSTS build agent. Enable the **Advanced settings** option and select the **Don't sync sources** option.
+1. Next, select the **Get Sources** step. Since Jenkins is being used for the build, there is no need to download the source code to the build agent. To skip syncing with the agent, select **Don't sync sources** option.
 
     ![Get Sources Settings in Team Build](images/vsts-getsourcessettings.png)
 
@@ -42,14 +46,13 @@ To begin, an endpoint to the Jenkins Server for communication with VSTS will be 
 
     ![Download Jenkins Artifact](images/downloadjenkinsartifact.png)
 
-1. The **Publish Artifact drop** will publish to the VSTS.
+1. The **Publish Artifact drop** will publish to Azure Pipelines.
 
-1. Click on the **Save & queue** button to complete the build definition configuration and initiate a new build.
+1. Click **Save & queue** button to save and initiate a new build.
 
 ## Deploying Jenkins Artifacts with Release Management
 
-
-The next step is to configure the VSTS Release Management to fetch and deploy the artifacts produced by the build.
+Next, you will configure a Azure CD pipelines to fetch and deploy the artifacts produced by the build.
 
 1. Since the deployment is being done to Azure, an endpoint to Azure will be configured. An endpoint to Jenkins server will also be configured, if not configured earlier.
 
