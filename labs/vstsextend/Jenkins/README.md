@@ -26,7 +26,7 @@ While there are pros and cons with both the approaches, the latter approach has 
  1. Triggering of a Continuous Deployment (CD) when the build is completed successfully
  1. Execution of the build as part of the branching strategy
 
-### What's covered in this lab
+## What's covered in this lab
 
 This lab covers both the approaches and the following tasks will be performed
 
@@ -36,7 +36,7 @@ This lab covers both the approaches and the following tasks will be performed
 * Configure Azure Pipeline to integrate with Jenkins
 * Configure a release pipeline in Azure Pipelines to deploy the build artifacts from Jenkins
 
-### Before you begin
+## Before you begin
 
 1. **Microsoft Azure Account**: You will need a valid and active Azure account for the Azure labs. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/){:target="_blank"}
     
@@ -52,9 +52,13 @@ This lab covers both the approaches and the following tasks will be performed
 
 1. Once the Jenkins VM is provisioned, click on the **Connect** button and make a note of the `username` and the `ip address`. This information will be required to connect to the Jenkins VM from ***Putty***
 
-    <a href="images/vmconnect_ssh1.png"><img class="thumbnail" src="images/vmconnect_ssh1.png" /></a>
+   <img class="myImg" src="images/vmconnect_ssh1.png" alt="Connecting to the virtual machine" />
 
     {% include note.html content= "Jenkins, by default, listens on port 8080 using HTTP. To configure a secure HTTPS connection, an SSL certificate will be required. If HTTPS communication is not being configured, the best way to ensure the sign-in credentials are not leaked due to a \"Man-in-the-middle\" attack is by logging-in using the SSH tunneling. An SSH tunnel is an encrypted tunnel created through a SSH protocol connection, that can be used to transfer unencrypted traffic over an unsecured network." %}
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="img01"><div id="caption"></div>
+</div>
 
 1. To initiate a SSH tunnel, the following command needs to be run from a Command Prompt.
 
@@ -62,7 +66,7 @@ This lab covers both the approaches and the following tasks will be performed
    putty.exe -ssh -L 8080:localhost:8080 <username>@<ip address>
    ```
 
-   <a href="images/ssh1.png"><img class="thumbnail" src="images/ssh1.png" /></a>
+   <img class="myImg" src="images/ssh1.png" alt="Initiating a SSH tunnel"/>
 
    > To run the above command, either the Putty.exe needs to be placed in the path selected in the Command Prompt or the full path of the Putty.exe need to be provided in the command.
 
@@ -71,7 +75,8 @@ This lab covers both the approaches and the following tasks will be performed
 1. Once the connection is successful, open a browser on the host machine and navigate to the URL [http://localhost:8080](http://localhost:8080). The **Getting Started** page for Jenkins will be displayed.
 
 1. The initial password needs to be provided in the **Getting Started** screen to unlock Jenkins. For security reasons, Jenkins will generate a password and save it in a file on the server.
-    <a href="images/jenkinsinitialemptypwd.png"><img class="thumbnail" src="images/jenkinsinitialemptypwd.png" alt="Jenkins Initial Password]"/></a>
+
+   <img class="myImg" src="images/jenkinsinitialemptypwd.png" alt="Jenkins Initial Password"/>
   
   
 1. Return to the **Putty** terminal and type the following command to open the password file and copy the password. Press the **Esc** button and then type **:q!** at the prompt to exit the vi editor without saving the file.
@@ -82,24 +87,23 @@ This lab covers both the approaches and the following tasks will be performed
 
 1. Return to the browser, paste the copied text in the Administrator password text box and click on the **Continue** button.
 
-      <a href="images/jenkinsinitialpwd.png"><img class="thumbnail" src="images/jenkinsinitialpwd.png" alt="Unlock Jenkins - First Time]"/></a>
-  
+     <img class="myImg" src="images/jenkinsinitialpwd.png" alt="Unlock Jenkins - First Time"/>  
 
     > Jenkins has a vast ecosystem with a strong and active open source community users contributing hundreds of useful plugins. While configuring Jenkins, choose between installing the most commonly used plugins or selected plugins.
 
 1. The Maven plugin is also required for the lab but will be installed later. Click on the **Install suggested plugins** option to initiate the configuration.
 
-      <a href="images/customizejenkins-plugins.png"><img class="thumbnail" src="images/customizejenkins-plugins.png" alt="Customize Jenkins Plugins]"/></a>
+      <img class="myImg" src="images/customizejenkins-plugins.png" alt="Customize Jenkins Plugins"/>
 
 
 1. To work with Jenkins, a new `Admin` user needs to be created. Provide the *User name*, *Password*, *Full name* and *Email address* in the **Getting Started** screen and then click on the **Save and Finish** button.
 
-      <a href="images/firstadminuser.png"><img class="thumbnail" src="images/firstadminuser.png" alt="Create Admin User for Jenkins]"/></a>
+    <img class="myImg" src="images/firstadminuser.png" alt="Create Admin User for Jenkins"/>
 
 
 1. Jenkins will now be ready for use. Click on the **Start using Jenkins** button to start using it.
 
-    <a href="images/jenkinsready.png"><img class="thumbnail" src="images/jenkinsready.png" alt="Jenkins Ready]"/></a>
+    <img class="myImg" src="images/jenkinsready.png" alt="Jenkins Ready"/>
 
 ## Installing and Configuring Plugins
 
@@ -111,15 +115,15 @@ This lab covers both the approaches and the following tasks will be performed
 
 1. Next we will enter the **Maven** plugin. Search for `maven-plugin`
 
-    <a href="images/manage-jenkins1.png"><img class="thumbnail" src="images/manage-jenkins1.png" alt="Manage Jenkins]"/></a>
+    <img class="myImg" src="images/manage-jenkins1.png" alt="Manage Jenkins"/>
 
 1. Select the **Maven Integration Plugin** and select the **Install without restart** button to install the plugin.
 
-    <a href="images/installmavenplugin.png"><img class="thumbnail" src="images/installmavenplugin.png" alt="Install Maven]"/></a>
+    <img class="myImg" src="images/installmavenplugin.png" alt="Install Maven"/>
 
 1. Once the plugin is installed, select the **Global Tool Configuration** option.
 
-        <a href="images/manage-tools-config.png"><img class="thumbnail" src="images/manage-tools-config.png" alt="Global Tool Configuration]"/></a>
+       <img class="myImg" src="images/manage-tools-config.png" alt="Global Tool Configuration"/>
 
    > Jenkins provides great out-of-the-box support for Maven. Since Maven is not yet installed, it can be manually installed by extracting the `tar` file located in a shared folder. Alternatively, when the **Install automatically** option is selected in the **Global Tool Configuration** screen, Jenkins will download and install Maven from the Apache website when a build job requires it.
 
@@ -127,7 +131,7 @@ This lab covers both the approaches and the following tasks will be performed
 
    > The latest version of Maven at the time of writing this lab is 3.5.4
 
-    <a href="images/maveninstallerconfig.png"><img class="thumbnail" src="images/maveninstallerconfig.png" alt="Maven Installer]"/></a>
+   <img class="myImg" src="images/maveninstallerconfig.png" alt="Maven Installer"/>
 
 1. Select the **Back to Dashboard** button to return to the home page.
 
@@ -135,7 +139,7 @@ This lab covers both the approaches and the following tasks will be performed
 
 1. From the Jenkins home page, click  the **New Item** link. Provide a name for the build definition, select **Maven project** and click **OK**.
 
-    <a href="images/newbuilddef.png"><img class="thumbnail" src="images/newbuilddef.png" alt="New Build Definition"/></a>
+    <img class="myImg" src="images/newbuilddef.png" alt="New Build Definition"/>
 
 1. Now scroll down to the **Source code Management** section. Select  **Git**  and provide the clone URL of the Azure DevOps Git repo in the format
 
@@ -143,51 +147,155 @@ This lab covers both the approaches and the following tasks will be performed
 
    {% include note.html content="If you do not see **Git** under Source code management, you will need to install/enable the Git plugin as described [here](#additional-tasks)" %}
 
-   <a href="images/jenkins-vstsrepo.png"><img class="thumbnail" src="images/jenkins-vstsrepo.png" alt="Configuring Azure DevOps Git URL"/></a>
+   <img class="myImg" src="images/jenkins-vstsrepo.png" alt="Configuring Azure DevOps Git URL"/>
 
    If your Azure DevOps Git repo is private, you should provide the credentials to access the repository. If you do not have one or don't remember the credentials, go to your Azure Repo  and select the **Clone** option. Select **Generate Credentials** and enter a `User name` and `Password`. Click **OK** to save and exit.
 
-    <a href="images/vsts-generategitcreds.png"><img class="thumbnail" src="images/vsts-generategitcreds.png" alt="Generating Git Credentials"/></a>
+   <img class="myImg" src="images/vsts-generategitcreds.png" alt="Generating Git Credentials"/>
 
 1. Click on the **Add \| Jenkins** option to add a new credential. Provide the `User name` and `Password` created earlier and click the **Add** button to close the wizard
 
-    <a href="images/jenkinscredentials.png"><img class="thumbnail" src="images/jenkinscredentials.png" alt="Adding Credentials to Jenkins"/></a>
+    <img class="myImg" src="images/jenkinscredentials.png" alt="Adding Credentials to Jenkins"/>
 
 1. Select the credential created in the previous step from the drop-down. The error message should disappear now.
 
-     <a href="images/jenksaddvstsgit.png"><img class="thumbnail" src="images/jenksaddvstsgit.png" alt="VSTS Git config in Jenkins"/></a>
+     <img class="myImg" src="images/jenksaddvstsgit.png" alt="VSTS Git config in Jenkins"/>
 
    >The source code for this application has both unit tests and UI tests. Only the unit tests will be included in this lab.
 
 1. Scroll down to the **Build** section and provide the text `package -Dtest=FaresTest,SimpleTest` in the **Goals and options** field. Click on the **Save** button to navigate to the home page of the project.
 
-     <a href="images/jenkins-buildsettings.png"><img class="thumbnail" src="images/jenkins-buildsettings.png" alt="Build Settings in Jenkins"/></a>
+     <img class="myImg" src="images/jenkins-buildsettings.png" alt="Build Settings in Jenkins"/>
 
 1. To configure the Post build actions in the **Post-Build Actions** section, click on the **Add post-build action** button and choose the **Archive the artifacts** option.
 
-   <a href="images/jenkinspostbuildaction.png"><img class="thumbnail" src="images/jenkinspostbuildaction.png" alt="Post Build Action"/></a>
+   <img class="myImg" src="images/jenkinspostbuildaction.png" alt="Post Build Action"/>
 
 1. Enter  **target/*.war** in the **Files to archive** text box. Click on the **Save** button to save the settings and return to the project page.
 
-   <a href="images/jenkinsarchiveartifacts.png"><img class="thumbnail" src="images/jenkinsarchiveartifacts.png" alt="Archive War"/></a>
+  <img class="myImg" src="images/jenkinsarchiveartifacts.png" alt="Archive War"/>
 
 1. Since the configuration is now completed, click on the **Build Now** option to initiate an Ad-hoc build.
 
    > The build progress will be displayed on the left pane in the **Build History** section
 
-   <a href="images/adhocbuild.png"><img class="thumbnail" src="images/adhocbuild.png" alt="Running Ad-hoc Build"/></a>
+   <img class="myImg" src="images/adhocbuild.png" alt="Running Ad-hoc Build"/>
 
 1. To view the build details and the list of build artifacts, click on the build number displayed in the **Module Builds** section.
 
-    <a href="images/builddetails.png"><img class="thumbnail" src="images/builddetails.png" alt="Build Details"/></a>
+    <img class="myImg" src="images/builddetails.png" alt="Build Details"/>
 
-   <a href="images/buildmodules.png"><img class="thumbnail" src="images/buildmodules.png" alt="Build Details"/></a>
+   <img class="myImg" src="images/buildmodules.png" alt="Build Details"/>
 
 1. Click on the **Test Results** option to view the results of the unit tests that were included in the build definition.
 
 Next: 
 
-## Approach 1: [Replacing Azure Pipelines with Jenkins](./approach1)
+## Approach 1: Replacing Azure Pipelines with Jenkins
 
-## Approach 2: [Wrapping Jenkins Job within Azure Pipelines](./approach2)
+In this approach, Jenkins will be configured to run separately. A service hook will be configured in Azure DevOps to trigger a Jenkins build upon a code commit.
+
+1. To configure the service hook, navigate to the Azure DevOps project settings page and select Settings and choose the **Service Hooks** option
+
+1. Select **Create subscription**. In the *New Service Hook Subscriptions* screen, select the **Jenkins** option and then click the **Next** button.
+
+   <img class="myImg" src="images/vsts-createjenkinsservice.png" alt="Create subscription" />
+
+1. Select the **Code pushed** option for the **Trigger on this type of event** field, select the MyShuttle repository and then click **Next**.
+
+   <img class="myImg" src="images/vsts-jenkinssubscription1.png" alt="VSTS - Trigger Code Pushed" />
+
+1. Provide the following details in the **Select and configure the action to perform** screen
+   1. Select the **Trigger Git build** option
+
+   1. Provide the **Jenkins base URL** in `http://{ip address or the host name}` format
+
+   1. Provide the **User name**  and **Password** to trigger the build. Note this can be the administrator that you configured earlier
+
+1. Click the **Test** button to validate the configuration and then click **Finish** .
+
+   <img class="myImg" src="images/vsts-jenkinssubscription2.png" alt="VSTS - Jenkins Info" />
+
+The VSTS will now automatically notify Jenkins to initiate a new build whenever any source code changes are committed on the repository.
+
+1. Try making a commit to the code - `src/main/webapp/index.jsp` would be a good candidate. This should trigger the MyShuttle build on Jenkins. You can confirm it by checking the history tab of the Jenkins services hook.  
+
+   <img class="myImg" src="images/jenkinstriggerhistory.png" alt="Jenkins Trigger History" />
+
+   
+## Approach 2: Wrapping Jenkins Job within Azure Pipelines
+
+
+In this section, Jenkins will be included as a job within a Azure CI Pipeline. The key benefit of this approach is you can have end-to-end traceability from work items to source code to build and release pipelines.
+
+To begin, an endpoint to the Jenkins Server for communication with Azure DevOps will be configured.
+
+1. Go to your project settings. Select **Pipelines| Service connections**, click **New service connection** and choose **Jenkins** from the dropdown.
+
+1. Provide a connection name, Jenkins server URL in the format `http://[server IP address or DNS name]` and Jenkins user name with password. Select **Verify Connection** and validate the configuration. If it susscessful, then select **Ok**.
+
+   <img class="myImg" src="images/jenkinsendpoint.png" alt ="Jenkins Endpoint" />
+
+   The next step would be to configure the build definition.
+
+1. Go to Azure Pipelines| Builds, Click**+New**  and select **New build pipeline** to create a new build definition
+
+1. At the time of writing this lab, Azure Pipelines did not support Jenkins in YAML. Select **Visual Designer** to create a pipeline without a YAML. 
+
+1. Select Myshutte project and repository
+
+1. Scroll down and select the standard **Jenkins** template Click Apply 
+
+    <img class="myImg" src="images/jenkinsbuildtemplate.png" alt="[Jenkins Template" />
+
+1. select **Hosted VS2017** for the Agent Queue, provide **MyShuttle** as the Job name and then select the Jenkins service endpoint created earlier.
+
+    <img class="myImg" src="images/vsts-buildjenkinssettings.png" alt="Jenkins Settings in Team Build" />
+
+1. Next, select the **Get Sources** step. Since Jenkins is being used for the build, there is no need to download the source code to the build agent. To skip syncing with the agent, select **Don't sync sources** option.
+
+    <img class="myImg" src="images/vsts-getsourcessettings.png" alt="Get Sources Settings in Team Build" />
+
+1. Next, select the **Queue Jenkins Job** step. This task queues the job on the Jenkins server. Make sure that the services endpoint and the job name are correct. The **Capture console output** and the **Capture pipeline output** options available at this step will be selected.
+
+     <img class="myImg" src="images/vsts-buildjenkinssettings1.png" alt="Jenkins Settings in Team Build" />
+
+     >The **Capture console output and wait for completion** option, when selected, will capture the output of the Jenkins build console when the Azure build pipeline runs. The build will wait until the Jenkins Job is completed. The **Capture pipeline output and wait for pipeline completion** option is very similar but applies to Jenkins pipelines (a build that has more than one job nested together).
+
+1. The **Jenkins Download Artifacts** task will download the build artifacts from the Jenkins job to the staging directory
+
+    <img class="myImg" src="images/downloadjenkinsartifact.png" alt="Download Jenkins Artifact" />
+
+1. The **Publish Artifact drop** will publish to Azure Pipelines.
+
+1. Click **Save & queue** button to save and initiate a new build.
+
+## Deploying Jenkins Artifacts with Release Management
+
+Next, you will configure a Azure CD pipelines to fetch and deploy the artifacts produced by the build.
+
+1. Since the deployment is being done to Azure, an endpoint to Azure will be configured. An endpoint to Jenkins server will also be configured, if not configured earlier.
+
+1. After the endpoint creation, click on the **Build & Release** hub and then select the **Releases** section. Click on the **+ Create a new Release definition** button to initiate a new release definition
+
+1. Since a web application will be published to Azure, the **Azure App Service Deployment** template will be used for the configuration.
+
+   <img class="myImg" src="images/newreleasedefintion.png" alt="New Release Definition" />
+
+1. The default environment for deployment will be named as **Dev**
+
+   <img class="myImg" src="images/rm_environment.png" alt="New Environment" />
+
+1. To link the release definition with the MyShuttle build on Jenkins, click on the **+Add** button to add an artifact
+
+1. In the **Add artifact** screen, Select **Jenkins** as the *Source type*, select the Jenkins endpoint configured earlier and provide **MyShuttle** for the *Source(Job)*
+
+   >The Source(Job) should map to the project name configured in Jenkins
+
+1. If the Jenkins server and the source location is configured correctly, once the publishing of the artifacts is completed, a message with the output file name **myshuttledev.war** will be displayed.
+
+   <img class="myImg" src="images/rm_addjenkinsartifact.png" alt="Add Jenkins artifact" />
+
+1. The output .war file can now be deployed on Azure. For details on the deployment, refer to the [Deploying a MySQL Backed Tomcat app on Azure Web App](../tomcat/)
+
 
