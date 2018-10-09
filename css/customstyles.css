@@ -754,7 +754,7 @@ li img {
 
 div#toc ul li ul li {
     list-style-type: none;
-    margin: 5px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 .tab-content {
@@ -1725,7 +1725,7 @@ img.myImg:hover {opacity: 0.7;}
     margin: auto;
     display: block;
     width: 80%;
-    max-width: 700px;
+    max-width: 500px;
 }
 
 /* Caption of Modal Image */

@@ -1,5 +1,5 @@
 ---
-title: Integrating Visual Studio Team Services with Jenkins
+title: Integrating Jenkins CI with Azure Pipelines
 layout: page
 sidebar: vsts2
 permalink: /labs/vstsextend/jenkins/
@@ -12,13 +12,13 @@ Last updated : {{ "now" | date: "%b %d,%Y" }}
 
 [Jenkins](https://jenkins.io/){:target="_blank"} is a very popular Java-based open source continuous integration (CI) server that allows teams to continuously build applications across platforms.
 
-Azure DevOps includes Team Build, a native CI build server that allows compilation of applications on Windows, Linux and Mac platforms. However, it also integrates well with Jenkins for teams who already use or prefer to use Jenkins for CI.
+Azure Pipeline includes a native CI build server that allows compilation of applications on Windows, Linux and Mac platforms. However, it also integrates well with Jenkins for teams who already use or prefer to use Jenkins for CI.
 
 There are two ways to integrate Azure DevOps with Jenkins
 
-* One way is to completely **replace Azure Build Pipeline with Jenkins**. This involves the configuration of a CI pipeline in Jenkins and a web hook in Azure DevOps that invokes the CI process when source code is pushed by any member to a repository or a branch. Azure Pipeline will be configured to connect to the Jenkins server through the configured Service Endpoint to fetch the compiled artifacts for the deployment.
+* One way is to  **run CI jobs only in Jenkins**. This involves the configuration of a CI pipeline in Jenkins and a web hook in Azure DevOps that invokes the CI process when source code is pushed by any member to a repository or a branch. An Azure CD pipeline  will be configured to connect to the Jenkins server through the configured service endpoint to fetch the compiled artifacts for the deployment.
 
-* The alternate way is to **use Jenkins and Azure DevOps together**. In this approach, a Jenkins build will be nested within Azure DevOps. A build definition will be configured in Azure Pipeline with a **Jenkins** task to queue a job in Jenkins that downloads the artifacts produced by the job and publish it to the Azure DevOps or any shared folder. The Azure Pipeline will pick these build artifacts for deployment.
+* The alternate way is to **wrap a Jenkins CI job inside a Azure Pipeline**. In this approach, a Jenkins build will be nested within a Azure build pipeline . A build definition will be configured with the **Jenkins** task to queue a job in Jenkins,  download the artifacts produced by the job and publish it to server or a shared folder. An Azure CD pipeline can be configured pick these build artifacts for deployment.
 
 While there are pros and cons with both the approaches, the latter approach has multiple benefits:
 
@@ -26,7 +26,7 @@ While there are pros and cons with both the approaches, the latter approach has 
  1. Triggering of a Continuous Deployment (CD) when the build is completed successfully
  1. Execution of the build as part of the branching strategy
 
-## What's covered in this lab
+### What's covered in this lab
 
 This lab covers both the approaches and the following tasks will be performed
 
@@ -36,7 +36,7 @@ This lab covers both the approaches and the following tasks will be performed
 * Configure Azure Pipeline to integrate with Jenkins
 * Configure a release pipeline in Azure Pipelines to deploy the build artifacts from Jenkins
 
-## Before you begin
+### Before you begin
 
 1. **Microsoft Azure Account**: You will need a valid and active Azure account for the Azure labs. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/){:target="_blank"}
     
@@ -55,10 +55,11 @@ This lab covers both the approaches and the following tasks will be performed
    <img class="myImg" src="images/vmconnect_ssh1.png" alt="Connecting to the virtual machine" />
 
     {% include note.html content= "Jenkins, by default, listens on port 8080 using HTTP. To configure a secure HTTPS connection, an SSL certificate will be required. If HTTPS communication is not being configured, the best way to ensure the sign-in credentials are not leaked due to a \"Man-in-the-middle\" attack is by logging-in using the SSH tunneling. An SSH tunnel is an encrypted tunnel created through a SSH protocol connection, that can be used to transfer unencrypted traffic over an unsecured network." %}
-<div id="myModal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="img01"><div id="caption"></div>
-</div>
+
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="img01" style="display: block;margin-left: auto; margin-right: auto;"><div id="caption"></div>
+    </div>
 
 1. To initiate a SSH tunnel, the following command needs to be run from a Command Prompt.
 
@@ -105,7 +106,7 @@ This lab covers both the approaches and the following tasks will be performed
 
     <img class="myImg" src="images/jenkinsready.png" alt="Jenkins Ready"/>
 
-## Installing and Configuring Plugins
+### Installing and Configuring Plugins
 
 1. Click **Manage Jenkins**  on the Jenkins home page to navigate to the **Manage Jenkins** screen.
 
@@ -135,7 +136,7 @@ This lab covers both the approaches and the following tasks will be performed
 
 1. Select the **Back to Dashboard** button to return to the home page.
 
-## Creating a new build job in Jenkins
+### Creating a new build job in Jenkins
 
 1. From the Jenkins home page, click  the **New Item** link. Provide a name for the build definition, select **Maven project** and click **OK**.
 
@@ -225,8 +226,7 @@ The VSTS will now automatically notify Jenkins to initiate a new build whenever 
    
 ## Approach 2: Wrapping Jenkins Job within Azure Pipelines
 
-
-In this section, Jenkins will be included as a job within a Azure CI Pipeline. The key benefit of this approach is you can have end-to-end traceability from work items to source code to build and release pipelines.
+In this section, Jenkins CI job will be nested within an Azure CI pipeline. The key benefit of this approach is you can have end-to-end traceability from work items to source code to build and release pipelines.
 
 To begin, an endpoint to the Jenkins Server for communication with Azure DevOps will be configured.
 
@@ -248,7 +248,7 @@ To begin, an endpoint to the Jenkins Server for communication with Azure DevOps 
 
     <img class="myImg" src="images/jenkinsbuildtemplate.png" alt="[Jenkins Template" />
 
-1. select **Hosted VS2017** for the Agent Queue, provide **MyShuttle** as the Job name and then select the Jenkins service endpoint created earlier.
+1. select **Hosted VS2017** for the Agent Queue, provide **MyShuttle** as the Job name ( name of the build definition that was created in Jenkins)  and then select the Jenkins service endpoint created earlier.
 
     <img class="myImg" src="images/vsts-buildjenkinssettings.png" alt="Jenkins Settings in Team Build" />
 
@@ -270,13 +270,13 @@ To begin, an endpoint to the Jenkins Server for communication with Azure DevOps 
 
 1. Click **Save & queue** button to save and initiate a new build.
 
-## Deploying Jenkins Artifacts with Release Management
+## Deploying the web app from Azure pipeline    
 
 Next, you will configure a Azure CD pipelines to fetch and deploy the artifacts produced by the build.
 
 1. Since the deployment is being done to Azure, an endpoint to Azure will be configured. An endpoint to Jenkins server will also be configured, if not configured earlier.
 
-1. After the endpoint creation, click on the **Build & Release** hub and then select the **Releases** section. Click on the **+ Create a new Release definition** button to initiate a new release definition
+1. After the endpoint creation, go to the **Releases** tab in **Azure Pipelines**. Open the + drop-down in the list of release pipelines, and choose **Create release pipeline**.
 
 1. Since a web application will be published to Azure, the **Azure App Service Deployment** template will be used for the configuration.
 
@@ -286,16 +286,19 @@ Next, you will configure a Azure CD pipelines to fetch and deploy the artifacts 
 
    <img class="myImg" src="images/rm_environment.png" alt="New Environment" />
 
-1. To link the release definition with the MyShuttle build on Jenkins, click on the **+Add** button to add an artifact
+1. In the **Artifacts** section in the **Pipeline** tab, choose the **+ Add** link to select your build artifact.
 
-1. In the **Add artifact** screen, Select **Jenkins** as the *Source type*, select the Jenkins endpoint configured earlier and provide **MyShuttle** for the *Source(Job)*
+    1. If you have used the first approach, select **Jenkins** as the *Source type*, select the Jenkins endpoint configured earlier and provide **MyShuttle** for the *Source(Job)*. The Source(Job) should map to the project name configured in Jenkins.
 
-   >The Source(Job) should map to the project name configured in Jenkins
+        If the Jenkins server and the source location is configured correctly, once the publishing of the artifacts is completed, a message with the output file name **myshuttledev.war** will be displayed.
 
-1. If the Jenkins server and the source location is configured correctly, once the publishing of the artifacts is completed, a message with the output file name **myshuttledev.war** will be displayed.
+        <img class="myImg" src="images/rm_addjenkinsartifact.png" alt="Add Jenkins artifact" />
 
-   <img class="myImg" src="images/rm_addjenkinsartifact.png" alt="Add Jenkins artifact" />
+   1. Otherwise, point this to the Azure CI build pipeine from which the Jenkins CI is executed.  
 
-1. The output .war file can now be deployed on Azure. For details on the deployment, refer to the [Deploying a MySQL Backed Tomcat app on Azure Web App](../tomcat/)
+
+1. The output  WAR file can now be deployed on Azure. 
+
+For details on the deployment, refer to the [Deploying a MySQL Backed Tomcat app on Azure Web App](../tomcat/)
 
 
