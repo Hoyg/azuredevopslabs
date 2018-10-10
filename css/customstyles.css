@@ -313,23 +313,25 @@ ul#results-container a:hover {
 
 div#toc{
     position: fixed;
-height:500px;
+/*height:500px;*/
     overflow-y: auto; 
 }
 
 div#toc ul li {
-    margin: 8px 0px 8px 22px;
-    font-size: 100%;
+    margin: 2px 0px 0px 2px;
+    font-size: 95%;
     list-style: none;
 }
 
 div#toc ul {
-    background-color:whitesmoke;
-    padding: 5px 0px;
+
+    padding: 5px 0px 0px 0px;
     border-radius: 5px;
     max-width:  450px;
     margin-right: 10px;
-  /*  color: gray;*/
+  /*  color: gray;
+      background-color:whitesmoke;
+  */
 
 }
 
@@ -343,15 +345,12 @@ div#toc ul li ul li::before {
 
 div#toc>ul::before {
     content: "In this lab";
-    font-weight: 500;
-    color: #555;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
     text-align: center;
     margin-left: auto;
     margin-right: auto;
     width: 70px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    padding-left: 10px;
 }
 
 li.dropdownActive a {
@@ -1312,7 +1311,7 @@ div.content {
     margin-left: 0px;
 }
 
-button.btn.btn-default.btn-lg.modalButton1 {
+button.btn.btn-default.btn-lgdiv.modalButton1 {
     margin-left: -20px;
 }
 
@@ -1695,5 +1694,84 @@ span.topnavbreadcrump
 
 li.extendlabslist{
     margin: 20px 0px 20px 0px;
+}
 
+img.myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 50%;
+}
+
+img.myImg:hover {opacity: 0.7;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {    
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {-webkit-transform:scale(0)} 
+    to {-webkit-transform:scale(1)}
+}
+
+@keyframes zoom {
+    from {transform:scale(0)} 
+    to {transform:scale(1)}
+}
+
+/* The Close Button */
+span.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+span.close:hover,
+span.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
 }
