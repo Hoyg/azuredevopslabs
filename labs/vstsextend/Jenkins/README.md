@@ -73,11 +73,10 @@ This lab covers both the approaches and the following tasks will be performed
 
 1. Once the connection is successful, open a browser on the host machine and navigate to the URL [http://localhost:8080](http://localhost:8080). The **Getting Started** page for Jenkins will be displayed.
 
-1. For security reasons, Jenkins generates an initial password and save it in a file on the server. This password will need to be retrieved and provided to unlock Jenkins. Return to the **Putty** terminal and type the following command to open the password file and copy the password.
+1. For security reasons, Jenkins generates an initial password and save it in a file on the server. This password will need to be retrieved and provided to unlock Jenkins. Return to the **Putty** terminal and type the following command to open the password file and copy the password. You can double click on the password text and use **CTRL+C** to copy the text and place it in the clipboard. Press the **Esc** button and then type **:q!** at the prompt to exit the vi editor without saving the file.
 
     `sudo vi /var/lib/jenkins/secrets/initialAdminPassword`
 
-    {% include tip.html content=" You can double click on the password text and use **CTRL+C** to copy the text and place it in the clipboard. Press the **Esc** button and then type **:q!** at the prompt to exit the vi editor without saving the file." %}
 
 1. Return to the browser, paste the copied text in the Administrator password text box and click on the **Continue** button.
 
@@ -122,11 +121,11 @@ This lab covers both the approaches and the following tasks will be performed
 
    <img class="myImg" src="images/maveninstallerconfig.png" alt="Maven Installer"/>
 
-1. Select the **Back to Dashboard** button to return to the home page.
+1. Select the **Back to Dashboard** button to return to the home page. We are done with the setup. Let's go and create a new CI job. 
 
 ### Creating a new build job in Jenkins
 
-1. We are done with the setup. Let's go and create a new CI Jib. From the Jenkins home page, click  the **New Item** link. Provide a name for the build definition, select **Maven project** and click **OK**.
+1. From the Jenkins home page, click  the **New Item** link. Provide a name for the build definition, select **Maven project** and click **OK**.
 
     <img class="myImg" src="images/newbuilddef.png" alt="New Build Definition"/>
 
@@ -155,7 +154,7 @@ This lab covers both the approaches and the following tasks will be performed
 
    <img class="myImg" src="images/jenkinspostbuildaction.png" alt="Post Build Action"/>
 
-   {% include note.html content="Note you might also see **Post-build steps** section which is more or less same as the actions in that sense the tasks configured here get executed after all the build steps have been executed. Custom plugins allow you to do certain tasks based on a condition (success, failure, all). Tasks in post-build actions are executed regardless of the outcome of the build." %}
+   {% include note.html content="Note there is also **Post-build steps** section which is very similiar to the actions section. The tasks configured in the post-build steps/actions are executed after all the build steps have been executed." %}
 
 1. Enter  **target/*.war** in the **Files to archive** text box. Select the **Save** button to save the settings and return to the project page.
 
@@ -181,21 +180,20 @@ In this approach, a service hook will be configured in Azure DevOps to trigger a
 
 1. To configure the service hook, navigate to the Azure DevOps project settings page and select **Service hooks** under **General**. Select **+ Create subscription**.
 
-1. In the *New Service Hook Subscriptions* screen, select the **Jenkins** option and then click the **Next** button. Jenkins service supports two events - **Build completed** and **Code Pushed**. We are only interested in thh code push event - so, select **Code pushed** for the **Trigger on this type of event** field. Select the MyShuttle repository and then click **Next**
+1. In the *New Service Hook Subscriptions* screen, select the **Jenkins** option and then click the **Next** button. Jenkins service supports three events - **Build completed**,  **Code Pushed** and **Pull request merged**. We are only interested in thh code push event - so, select **Code pushed** for the **Trigger on this type of event** field. Select the MyShuttle repository and then click **Next**
 
    <img class="myImg" src="images/vsts-jenkinssubscription1.png" alt="VSTS - Trigger Code Pushed" />
 
 1. Provide the following details in the **Select and configure the action to perform** screen
    1. Select the **Trigger Git build** option
 
-   1. Provide the **Jenkins base URL** in `http://{ip address or the host name}` format
+   1. Provide the **Jenkins base URL** in `http://{ip address or the host name}` format 
 
-   1. Provide the **User name**  and **Password** to trigger the build. Note this can be the administrator that you configured earlier
+   1. Provide the **User name**  and **Password** to trigger the build. Note the username and password is the credentials of the Jenkins administrator user that you configured earlier
 
 1. Click the **Test** button to validate the configuration and then click **Finish**. This will set the trigger to initiate the Jenkins CI build whenever a source code change is committed on the repository.
 
    <img class="myImg" src="images/vsts-jenkinssubscription2.png" alt="VSTS - Jenkins Info" />
-
 
 1. Try making a commit to the code -  `src/main/webapp/index.jsp` would be a good candidate. This should trigger the MyShuttle build on Jenkins. You can confirm it by checking the history tab of the Jenkins services hook.  
 
@@ -208,15 +206,15 @@ In this approach, Jenkins CI job will be nested within an Azure CI pipeline. The
 
 To begin, an endpoint to the Jenkins Server for communication with Azure DevOps will be configured.
 
-1. Go to your project settings. Select **Pipelines| Service connections**, click **New service connection** and choose **Jenkins** from the dropdown.
+1. Go to your project settings. Select **Pipelines** and **Service connections**, click **New service connection** and choose **Jenkins** from the dropdown.
 
 1. Provide a connection name, Jenkins server URL in the format `http://[server IP address or DNS name]` and Jenkins user name with password. Select **Verify Connection** and validate the configuration. If it susscessful, then select **Ok**.
 
    <img class="myImg" src="images/jenkinsendpoint.png" alt ="Jenkins Endpoint" />
 
-   The next step would be to configure the build definition.
+   The next step would be to configure the build pipeline.
 
-1. Go to Azure Pipelines| Builds, Click**+New**  and select **New build pipeline** to create a new build definition
+1. Go to **Azure Pipelines** and **Builds**, Click **+New**  and select **New build pipeline** to create a new build definition
 
 1. At the time of writing this lab, Azure Pipelines did not support Jenkins in YAML. Select **Visual Designer** to create a pipeline without a YAML. 
 
@@ -236,9 +234,10 @@ To begin, an endpoint to the Jenkins Server for communication with Azure DevOps 
 
 1. Next, select the **Queue Jenkins Job** step. This task queues the job on the Jenkins server. Make sure that the services endpoint and the job name are correct. The **Capture console output** and the **Capture pipeline output** options available at this step will be selected.
 
+    The **Capture console output and wait for completion** option, when selected, will capture the output of the Jenkins build console when the Azure build pipeline runs. The build will wait until the Jenkins Job is completed. The **Capture pipeline output and wait for pipeline completion** option is very similar but applies to Jenkins pipelines (a build that has more than one job nested together).
+
      <img class="myImg" src="images/vsts-buildjenkinssettings1.png" alt="Jenkins Settings in Team Build" />
 
-     >The **Capture console output and wait for completion** option, when selected, will capture the output of the Jenkins build console when the Azure build pipeline runs. The build will wait until the Jenkins Job is completed. The **Capture pipeline output and wait for pipeline completion** option is very similar but applies to Jenkins pipelines (a build that has more than one job nested together).
 
 1. The **Jenkins Download Artifacts** task will download the build artifacts from the Jenkins job to the staging directory
 
@@ -250,13 +249,11 @@ To begin, an endpoint to the Jenkins Server for communication with Azure DevOps 
 
 ## Linking the build artifact for deployment in a CD pipeline    
 
-Next, you will configure a Azure CD pipelines to fetch and deploy the artifacts produced by the build.
-
-1. Since the deployment is being done to Azure, an endpoint to Azure will be configured. An endpoint to Jenkins server will also be configured, if not configured earlier.
+Next, you will configure a Azure CD pipelines to fetch and deploy the artifacts produced by the build. Since the deployment is being done to Azure, an endpoint to Azure will be configured. An endpoint to Jenkins server will also be configured, if not configured earlier.
 
 1. After the endpoint creation, go to the **Releases** tab in **Azure Pipelines**. Open the + drop-down in the list of release pipelines, and choose **Create release pipeline**.
 
-1. Since a web application will be published to Azure, the **Azure App Service Deployment** template will be used for the configuration.
+1. Select the **Azure App Service Deployment** template. 
 
    <img class="myImg" src="images/newreleasedefintion.png" alt="New Release Definition" />
 
