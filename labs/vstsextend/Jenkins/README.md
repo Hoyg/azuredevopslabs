@@ -146,7 +146,7 @@ This lab covers both the approaches and the following tasks will be performed
 
      <img class="myImg" src="images/jenksaddvstsgit.png" alt="VSTS Git config in Jenkins"/>
 
-1. The source code for this application has both unit tests and UI tests. We are not ready to run the UI test at this point. So, we will specify to run only the unit tests. Scroll down to the **Build** section and provide the text `package -Dtest=FaresTest,SimpleTest` in the **Goals and options** field. Select **Save** to save and navigate to the home page of the project.
+1. The source code for this application has both unit tests and UI tests. We are not ready to run the UI test at this point. So, we will specify to run only the unit tests. Scroll down to the **Build** section and provide the text `package -Dtest=FaresTest,SimpleTest` in the **Goals and options** field. 
 
      <img class="myImg" src="images/jenkins-buildsettings.png" alt="Build Settings in Jenkins"/>
 
@@ -249,7 +249,7 @@ To begin, an endpoint to the Jenkins Server for communication with Azure DevOps 
 
 ## Linking the build artifact for deployment in a CD pipeline    
 
-Next, you will configure a Azure CD pipelines to fetch and deploy the artifacts produced by the build. Since the deployment is being done to Azure, an endpoint to Azure will be configured. An endpoint to Jenkins server will also be configured, if not configured earlier.
+Next, you will configure an Azure CD pipelines to fetch and deploy the artifacts produced by the build. Since the deployment is being done to Azure, an endpoint to Azure will be configured. An endpoint to Jenkins server will also be configured, if not configured earlier.
 
 1. After the endpoint creation, go to the **Releases** tab in **Azure Pipelines**. Open the + drop-down in the list of release pipelines, and choose **Create release pipeline**.
 
