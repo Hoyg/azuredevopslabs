@@ -85,6 +85,8 @@ In this exercise, we will configure an Azure pipeline to deploy the NodeJS expre
 
    ![Azure Subscription](media/authorize1.png)
 
+   * $(webappname): We will use the WebApp which was created in the previous task to deploy the application and hence we need to configure the Azure service connection
+
 1. Click on the pipeline to set the trigger to continuous deployment and save the release pipeline.
 
    ![Continuous Deployment](media/enablecd.png)
