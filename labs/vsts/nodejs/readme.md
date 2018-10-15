@@ -14,7 +14,7 @@ This lab shows you how to deploy Node.js Express application to Azure App Servic
 
 1. Refer the [Getting Started](../Setup/) page to know the prerequisites for this lab.
 
-1. Click the [Azure DevOps Demo Generator](http://azuredevopsdemogenerator.azurewebsites.net) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
+1. Click the [Azure DevOps Demo Generator](http://demogen.azurewebsites.net/?name=NodeJS&templateid=77382) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
 
 ## Exercise 1: Configure Build
 
