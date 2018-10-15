@@ -10,7 +10,7 @@ Last updated : {{ "now" | date: "%b %d,%Y" }}
 
 ## Overview
 
-In this lab, you will learn how you can use Azure Pipelines in Azure DevOps to deploy a Java web application to [Apache Tomcat](http://tomcat.apache.org/){:target="_blank"} with a MySQL database on Azure. Apache Tomcat is an open-source Java Servlet Container developed by the Apache Software Foundation (ASF). MySQL is a very popular open-source relational database management system.
+In this lab, you will learn how you can use Azure Pipelines to deploy a Java web application to [Apache Tomcat](http://tomcat.apache.org/){:target="_blank"} with a MySQL database on Azure. Apache Tomcat is an open-source Java Servlet Container developed by the Apache Software Foundation (ASF). MySQL is a very popular open-source relational database management system.
 
 For this lab, you will use Azure App Service and Azure Database for MySQL, a relational database service based on the open source MySQL Server engine. It is a fully managed database as a service,  capable of handing mission-critical workload with predictable performance and dynamic scalability.
 
@@ -133,4 +133,4 @@ You have now setup and configured all the resources that is needed to deploy and
 
 ## Congratulations, you have completed the lab!
 
-In this lab, you have learnt how to deploy a Java application with MySQL database on Azure through Azure DevOps organization.
+In this lab, you have learnt how to deploy a Java application with MySQL database on Azure with Azure Pipelines
