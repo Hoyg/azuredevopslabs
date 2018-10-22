@@ -24,7 +24,7 @@ This lab covers the configuration of the deployment groups and details how the d
 
 1. Refer the [Getting Started](../Setup/) page to know the prerequisites for this lab.
 
-1. Click the [Azure DevOps Demo Generator](http://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77376&Name=AzureFunctions_BuildWorkshop) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
+1. Click the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77368&Name=deploymentgroups) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
 
 ## Setting up the Environment
 
