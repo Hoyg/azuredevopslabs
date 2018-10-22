@@ -30,9 +30,9 @@ This lab will show how you can
 
 1. Use  **MyShuttle** as a template to provision the new Azure DevOps project using the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77371&Name=MyShuttle){:target="_blank"}.
 
-## Exercise 2: Creating Azure Web App and MySQL database
+## Exercise 1: Creating Azure Web App and MySQL database
 
-1. Use the **Web App + MySQL** Azure template from the Azure Marketplace to create a Website and MySQL Database together to start developing even faster.
+1. Click the below button to provision a Website and MySQL Database together to start developing even faster.
 
     [![Tomcat Configuration](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.WebSiteMySQLDatabase){:target="_blank"}
 
@@ -55,7 +55,7 @@ This lab will show how you can
 
     In this example, the server name is **myshuttle-1-mysqldbserver.mysql.database.azure.com** and the admin user name is **mysqldbuser@myshuttle-1-mysqldbserver**.
 
-## Exercise 3: Updating the App Settings for the Web App
+## Exercise 2: Updating the App Settings for the Web App
 
 Next, navigate to the Web app that you have created. As you are deploying a Java application, you need to change the web app's web container to Apache Tomcat.
 
@@ -85,7 +85,7 @@ Next, navigate to the Web app that you have created. As you are deploying a Java
 
 You have now setup and configured all the resources that is needed to deploy and run the MyShuttle application.
 
-## Exercise 4: Deploy the changes to Web App
+## Exercise 3: Deploy the changes to Web App
 
 1. Select **Pipelines** and then **Releases**.
 
@@ -131,6 +131,6 @@ You have now setup and configured all the resources that is needed to deploy and
 
     ![MyShuttle page after login](images/myshuttle-afterlogin.png)
 
-## Congratulations, you have completed the lab!
+## Summary
 
-In this lab, you have learnt how to deploy a Java application with MySQL database on Azure with Azure Pipelines
+In this lab, you have learnt how to deploy a Java application with MySQL database on Azure with Azure Pipelines.
