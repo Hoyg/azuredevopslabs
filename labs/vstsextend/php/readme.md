@@ -25,7 +25,7 @@ Upon completion of this lab, you will be able to:
 
 ### Before you begin
 
-1. Refer [Getting Started](../setup/readme/) before you follow the lab exercises.
+1. Refer [Getting Started](../Setup/) before you follow the lab exercises.
 
 ## Exercise 1 : Create a PHP application project using the Azure DevOps Demo Generator
 
