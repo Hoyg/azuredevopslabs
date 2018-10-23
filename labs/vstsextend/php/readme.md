@@ -141,11 +141,15 @@ Once the build is complete, let us configure the CD pipeline. You will notice a 
     </tr>
    </table>
 
-1. Queue the saved release definition to deploy the latest build artifacts to the Azure Web App. Once the release succeeds, navigate to the created Web App to view the PHP application.
+1. Queue the saved release definition to deploy the latest build artifacts to the Azure Web App.
 
-## Exercise 4 : Cleanup the Azure Resources
+  ![Release](images/createrelease.png)
 
-When you complete the lab, you can delete the complete resource group to reduce your Azure subscription credits consumption by clicking **Delete Resource Group** in the particular Resource Group Overview page.
+  ![Create Release](images/createrelease1.png)
+
+1. Once the release succeeds, navigate to the created Web App to view the PHP application.
+
+  ![PHP App](images/php.png) 
 
 ## Summary
 
