@@ -48,7 +48,7 @@ Once the deployment succeeds, you will see 2 Web Apps and an App Service Plan pr
 
 1. Set the local path where you want the local repository to be placed and select **Clone**.
 
-     ![clonepath](images/clonepath.png)
+     ![clonepath](images/clonepath1.png)
 
 1. In Team Explorer under **Solutions**, you will see  **PartsUnlimited.sln**. Double click the solution to open the project.
 
@@ -74,9 +74,11 @@ The Azure Functions created in this exercise will act as a switching proxy or th
 
 1. Expand your new function app, then click the + button next to **Functions**.
 
-1. In the *Get started quickly page*, select `WebHook + API`, Choose `CSharp` as language for your function, and then click on **Create this function**.
+1. In the *Azure Functions for .NET - getting started* page, select `In-portal` and click **Continue**. In the resulting page, choose **Webhook + API** and click **Create**.
 
+    ![Options](images/inportal.png) 
     ![webhook](images/webhook.png) 
+
 
    > This lab uses CSharp as script language for the function, but a function can be created in any supported language.
 
@@ -148,7 +150,7 @@ The Azure Functions created in this exercise will act as a switching proxy or th
 
     ![Commitchanges](images/commitchanges.png)
 
-## Exercise 3: Setup continuous integration in Team Services
+## Exercise 3: Setup Continuous Integration with Azure Build Pipelines
 
 In this exercise, you will look at the build definition to get an insight of how the code is built as part of the CI pipeline.
 
@@ -156,7 +158,7 @@ In this exercise, you will look at the build definition to get an insight of how
 
     ![build definition](images/builddefinition.png)
 
-1. Before the build is executed, you will make this a **CI** build. Clickon the **Triggers** tab in the build definition. Enable the **Continuous Integration** trigger. Click **Save & queue**  to save the changes and trigger a build. This will ensure that the build process is automatically triggered every time you commit a change to your repository.
+1. Before the build is executed, you will make this a **CI** build. Click the **Triggers** tab in the build definition. Enable the **Continuous Integration** trigger. Click **Save & queue**  to save the changes and trigger a build. This will ensure that the build process is automatically triggered every time you commit a change to your repository.
 
     ![CI Trigger](images/enableci.png)
     ![Save and Queue](images/saveandqueue.png)
@@ -165,7 +167,7 @@ In this exercise, you will look at the build definition to get an insight of how
 
     ![Queued Build](images/queuedbuild.png) 
 
-## Exercise 4: Creating a CD pipeline in Team Services
+## Exercise 4: Configuring Continuous Deployment with Azure Release Pipelines
 
 1. Once the build succeeds, click the **Releases** option under the **Repos** hub.
 
@@ -235,6 +237,6 @@ In this exercise, you will look at the build definition to get an insight of how
     
     ![New Discounted Price](images/discountedprice30.png)
 
-## Congratulations, you have completed the lab!
+## Summary
 
    You have learned how to create and code Azure Functions in Visual Studio and setup a CI/CD pipeline to deploy the Functions App.
