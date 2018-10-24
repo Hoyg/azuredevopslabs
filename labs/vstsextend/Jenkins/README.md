@@ -99,19 +99,19 @@ This lab covers both the approaches and the following tasks will be performed
 
 ### Installing and Configuring Plugins
 
-1. We will now install the Maven and VSTS (yet to be renamed Azure DevOps!) plugins that we require for this lab. Click **Manage Jenkins**  on the Jenkins home page to navigate to the **Manage Jenkins** screen. Select **Manage Plugins** and then select the **Available** tab and search for `team services` 
+1. We will now install the Maven and VSTS (yet to be renamed Azure DevOps!) plugins that we require for this lab. Click **Manage Jenkins**  on the Jenkins home page and select **Manage Plugins**. Select the **Available** tab and search for `team services` 
 
     <img class="myImg" src="images/manage-jenkins1.png" alt="Manage Jenkins"/>
 
 1. Select **VS Team Services Continuous Deployment** plugin and select **Install without restart**
 
-1. Next search for `maven-plugin`
+1. Select **Manage Plugins**, select the **Available** tab and search for `maven-plugin`
 
 1. Select the **Maven Integration Plugin** and select the **Install without restart** button to install the plugin.
 
     <img class="myImg" src="images/installmavenplugin.png" alt="Install Maven"/>
 
-1. Once the plugin is installed, select the **Global Tool Configuration** option.
+1. Once the plugin is installed, go back to **Manage Jenkins** and select the **Global Tool Configuration** option.
 
     <img class="myImg" src="images/manage-tools-config.png" alt="Global Tool Configuration"/>
 
@@ -134,7 +134,7 @@ This lab covers both the approaches and the following tasks will be performed
 
    <img class="myImg" src="images/jenkins-vstsrepo.png" alt="Configuring Azure DevOps Git URL"/>
 
-1. Your Azure repo is very likely to be private. Unless you have public repo, you should provide the credentials to access the repository. If you do not have one or don't remember the credentials, go to your Azure Repos and select the **Clone** option. Select **Generate Credentials** and enter a `User name` and `Password`. Click **OK** to save and exit.
+1. Your Azure repo is very likely to be private. Unless you have public repo, you should provide the credentials to access the repository. If you do not have one or don't remember the credentials, go to your Azure Repos and select the **Clone** option. Select **Generate Credentials** and enter a `User name` and `Password`. Click **Save Git Credentials** to save.
 
    <img class="myImg" src="images/vsts-generategitcreds.png" alt="Generating Git Credentials"/>
 
@@ -142,7 +142,7 @@ This lab covers both the approaches and the following tasks will be performed
 
     <img class="myImg" src="images/jenkinscredentials.png" alt="Adding Credentials to Jenkins"/>
 
-1. Select the credential created in the previous step from the drop-down. The error message should disappear now.
+1. Select the credential created in the previous step from the drop-down. The error message should disappear.
 
      <img class="myImg" src="images/jenksaddvstsgit.png" alt="VSTS Git config in Jenkins"/>
 
@@ -150,7 +150,7 @@ This lab covers both the approaches and the following tasks will be performed
 
      <img class="myImg" src="images/jenkins-buildsettings.png" alt="Build Settings in Jenkins"/>
 
-1. Once the build is complete, you can specify what action you want to take. For instance you can archive the build artifacts, trigger a Azure CD pipeline, deploy directly to Azure App Service, etc., We will choose the **Archive the artifacts** option in the **post-build Actions**. 
+1. Once the build is complete, you can specify what action you want to take. For instance you can archive the build artifacts, trigger a Azure CD pipeline, deploy directly to Azure App Service, etc., We will choose the **Archive the artifacts** option in the **Post-build Actions**. 
 
    <img class="myImg" src="images/jenkinspostbuildaction.png" alt="Post Build Action"/>
 
@@ -170,7 +170,7 @@ This lab covers both the approaches and the following tasks will be performed
 
     <img class="myImg" src="images/buildmodules.png" alt="Build Details"/>
 
-1. Select the **Test Results** option to view the results of the unit tests that were included in the build definition.
+1. Select the **Test Result** option to view the results of the unit tests that were included in the build definition.
 
 Next, we will explore the two different options available to trigger the Jenkins CI job when a code is pushed to Azure Repos. 
 
@@ -180,7 +180,7 @@ In this approach, a service hook will be configured in Azure DevOps to trigger a
 
 1. To configure the service hook, navigate to the Azure DevOps project settings page and select **Service hooks** under **General**. Select **+ Create subscription**.
 
-1. In the *New Service Hook Subscriptions* screen, select the **Jenkins** option and then click the **Next** button. Jenkins service supports three events - **Build completed**,  **Code Pushed** and **Pull request merged**. We are only interested in thh code push event - so, select **Code pushed** for the **Trigger on this type of event** field. Select the MyShuttle repository and then click **Next**
+1. In the *New Service Hook Subscriptions* screen, select the **Jenkins** option and then click the **Next** button. Jenkins service supports three events - **Build completed**,  **Code Pushed** and **Pull request merged**. We are only interested in thh code push event - so, select **Code pushed** for the **Trigger on this type of event** field. Select the **MyShuttle** repository and then click **Next**
 
    <img class="myImg" src="images/vsts-jenkinssubscription1.png" alt="VSTS - Trigger Code Pushed" />
 
@@ -192,8 +192,6 @@ In this approach, a service hook will be configured in Azure DevOps to trigger a
    1. Provide the **User name**  and **Password** to trigger the build. Note the username and password is the credentials of the Jenkins administrator user that you configured earlier
 
 1. Click the **Test** button to validate the configuration and then click **Finish**. This will set the trigger to initiate the Jenkins CI build whenever a source code change is committed on the repository.
-
-   <img class="myImg" src="images/vsts-jenkinssubscription2.png" alt="VSTS - Jenkins Info" />
 
 1. Try making a commit to the code -  `src/main/webapp/index.jsp` would be a good candidate. This should trigger the MyShuttle build on Jenkins. You can confirm it by checking the history tab of the Jenkins services hook.  
 
@@ -214,17 +212,17 @@ To begin, an endpoint to the Jenkins Server for communication with Azure DevOps 
 
    The next step would be to configure the build pipeline.
 
-1. Go to **Azure Pipelines** and **Builds**, Click **+New**  and select **New build pipeline** to create a new build definition
+1. Go to **Azure Pipelines** and **Builds**, Click **+New**  and select **New build pipeline** to create a new build definition.
 
-1. At the time of writing this lab, Azure Pipelines did not support Jenkins in YAML. Select **Visual Designer** to create a pipeline without a YAML. 
+1. At the time of writing this lab, Azure Pipelines did not support Jenkins in YAML. Select **Use the Visual Designer** to create a pipeline without a YAML. 
 
-1. Select Myshutte project and repository
+1. Select **Myshutte** project, repository and click *Continue*.
 
-1. Scroll down and select the standard **Jenkins** template Click Apply 
+1. Scroll down and select the standard **Jenkins** template Click Apply.
 
     <img class="myImg" src="images/jenkinsbuildtemplate.png" alt="[Jenkins Template" />
 
-1. select **Hosted VS2017** for the Agent Queue, provide **MyShuttle** as the Job name ( name of the build definition that was created in Jenkins)  and then select the Jenkins service endpoint created earlier.
+1. Select **Hosted VS2017** for the Agent Queue, provide **MyShuttle** as the Job name ( name of the build definition that was created in Jenkins)  and then select the Jenkins service endpoint created earlier.
 
     <img class="myImg" src="images/vsts-buildjenkinssettings.png" alt="Jenkins Settings in Team Build" />
 
@@ -239,7 +237,7 @@ To begin, an endpoint to the Jenkins Server for communication with Azure DevOps 
      <img class="myImg" src="images/vsts-buildjenkinssettings1.png" alt="Jenkins Settings in Team Build" />
 
 
-1. The **Jenkins Download Artifacts** task will download the build artifacts from the Jenkins job to the staging directory
+1. The **Jenkins Download Artifacts** task will download the build artifacts from the Jenkins job to the staging directory.
 
     <img class="myImg" src="images/downloadjenkinsartifact.png" alt="Download Jenkins Artifact" />
 
@@ -263,7 +261,7 @@ Next, you will configure an Azure CD pipelines to fetch and deploy the artifacts
 
 1. In the **Artifacts** section in the **Pipeline** tab, choose the **+ Add** link to select your build artifact.
 
-    1. If you have used the first approach, select **Jenkins** as the *Source type*, select the Jenkins endpoint configured earlier and provide **MyShuttle** for the *Source(Job)*. The Source(Job) should map to the project name configured in Jenkins.
+    1. If you have used the first approach, select **Jenkins** as the *Source type*, select the Jenkins endpoint configured earlier and provide **MyShuttle** for the *Source(Job)*, choose the **Default version** as *Latest*. The Source(Job) should map to the project name configured in Jenkins.
 
         If the Jenkins server and the source location is configured correctly, once the publishing of the artifacts is completed, a message with the output file name **myshuttledev.war** will be displayed.
 
