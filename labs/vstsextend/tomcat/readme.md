@@ -18,8 +18,7 @@ For this lab, you will use Azure App Service and Azure Database for MySQL, a rel
 
 This lab will show how you will
 
-- Create a new Azure App Service and configure it to use Apache Tomcat
-- Create a new MySQL database
+- Create a new Azure App Service with a MYSQL database server and configure the web app to use Apache Tomcat
 - Use Azure App Service Task to deploy a WAR file
 
 ### Before you begin
@@ -89,19 +88,30 @@ You have now setup and configured all the resources that is needed to deploy and
 
 ## Exercise 3: Deploy the changes to Web App
 
-1. Select **Pipelines** and then **Releases**.
+1. Select **Pipelines** and then, **Builds**. Choose the build **MyShuttleBuild** and click **Edit Pipeline** to view the build definition.
+
+    ![Builds](images/choosebuilddefn.png)
+    
+   > The lab uses the standard **Maven** build template to compile the code, copy and publish the resulting artifacts for deployment. An additional file which is copied here is the *CreateMYSQLDB.sql* file which creates a MYSQL database and inserts a few records into it during the deployment.
+
+1. Click **Queue** to queue the build and wait for the build to complete.
+
+    ![Queue Build](images/queuebuild.png)
+    ![Queue Build 2](images/clickqueue.png) 
+
+1. Once the build succeeds, Select **Releases** under **Pipelines**.
 
 1. Select **MyShuttle Release** and click **Edit Pipeline** to open the release definition.
 
    ![Edit MyShuttle Release Definition ](images/editrelease.png)
 
-1. If you are following this lab from Jenkins hands-on-lab, make sure the artifact is pointing to Jenkins. Otherwise, it should be pointing to the **Build** artifact as shown below:
+1. Make sure the artifact is pointing to the **Build** artifact as shown below:
 
    ![Team Build Artifact](images/addartifacts.png)
 
-   > If you havent followed the Jenkins hands-on-lab, notice that a CI build under **Builds** section has completed and its artifacts are linked here.
+   > If you are following this lab from Jenkins hands-on-lab, make sure the artifact is pointing to Jenkins.
 
-1. Click **Tasks**, select **Azure-Dev** and choose the **Azure subscription** details from the drop down. Click **Authorize** and login to your Azure subscription in the pop-up window. Provide or choose the created **App Service Name** with the web app that you created previously.
+1. Click **Tasks**, select **Azure-Dev** and choose the **Azure subscription** details from the drop down. Click **Authorize** and login to your Azure subscription in the pop-up window. Provide or choose the created **App Service Name** with the web app that you created previously in this lab.
 
    ![Link Parameters](images/parameters.png)
 
@@ -115,7 +125,7 @@ You have now setup and configured all the resources that is needed to deploy and
 
    ![Execute Azure MySQL Task](images/azuremysqltask.png)
 
-1. Select the **Deploy Azure App Service** task, select the Azure subscription from the drop down and ensure that the created app service name is reflected correctly.
+1. Select the **Deploy Azure App Service** task and ensure that the created **App service name** is reflected correctly.
 
    {% include note.html content= "We are using the **Deploy Azure App Service** task. This task is used to update Azure App Service to deploy Web Apps and WebJobs to Azure.  The task works on cross platform agents running Windows, Linux or Mac and uses the underlying deployment technologies of Web Deploy and Kudu. The task works for ASP.NET, ASP.NET Core 1 and Node.js based web applications. Note that this task works with  Azure Resource Manager APIs only." %}
 
