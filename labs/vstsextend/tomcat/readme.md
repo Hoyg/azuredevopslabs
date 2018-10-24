@@ -107,12 +107,10 @@ You have now setup and configured all the resources that is needed to deploy and
 
    ![Edit MyShuttle Release Definition ](images/editrelease.png)
 
-1. Make sure the artifact is pointing to the **Build** artifact as shown below:
+1. Make sure the artifact is pointing to the **Build** artifact as shown below. If you are following this lab from Jenkins hands-on-lab, make sure the artifact is pointing to Jenkins.
 
    ![Team Build Artifact](images/addartifacts.png)
-
-   > If you are following this lab from Jenkins hands-on-lab, make sure the artifact is pointing to Jenkins.
-
+   
 1. Click **Tasks**, select **Azure-Dev** and choose the **Azure subscription** details from the drop down. Click **Authorize** and login to your Azure subscription in the pop-up window. Provide or choose the created **App Service Name** with the web app that you created previously in this lab.
 
    ![Link Parameters](images/parameters.png)
