@@ -60,7 +60,7 @@ Next, navigate to the Web app that you have created. As you are deploying a Java
 
     ![Setting Web container to Tomcat](images/webcontainer.png)
 
-1. Click on **Save** and wait for the update to be applied. Then navigate to the web app URL again and now you should see a different page.
+1. Click on **Save** and wait for the update to be applied. The web page will now look like the below image.
 
     ![Default Java App](images/defaultappjava.png)
 
@@ -70,7 +70,9 @@ Next, navigate to the Web app that you have created. As you are deploying a Java
 
 1. Add a new **MySQL** connection string with **MyShuttleDb** as the name, paste the following string for the value and replace **MySQL Server Name**, **your user name** and **your password** with the appropriate values -
 
-   `jdbc:mysql://{MySQL Server Name}:3306/alm?useSSL=true&requireSSL=false&autoReconnect=true&user={your user name}&password={your password}`
+   > `jdbc:mysql://{MySQL Server Name}:3306/alm?useSSL=true&requireSSL=false&autoReconnect=true&user={your user name}&password={your password}`
+
+   ![DB Connection](images/dbconnstrings.png)
 
     - MySQL Server Name : Value that you copied previously from the MySQL server Properties.
     - your user name : Value that you copied previously from the MySQL server Properties.
@@ -97,7 +99,7 @@ You have now setup and configured all the resources that is needed to deploy and
 1. Click **Queue** to queue the build and wait for the build to complete.
 
     ![Queue Build](images/queuebuild.png)
-    ![Queue Build 2](images/clickqueue.png) 
+    ![Queue Build 2](images/clickqueue.png)
 
 1. Once the build succeeds, Select **Releases** under **Pipelines**.
 
