@@ -114,6 +114,7 @@
   }(document, 'script', 'facebook-jssdk'));</script>
 
 
+
     <!-- div style="color:#F87431;height:7px;">-------------------</div-->
     <!-- Page Content -->
     <br /> <br/>
@@ -127,6 +128,7 @@
 
                 {% include sidebar.html %}
             </div>
+
             <!-- Content Column -->
                 <div class="col-sm-10">
                     {{content}}
@@ -139,7 +141,9 @@
 
             </div>
 
-        
+            <div class="col-sm-10">
+                {% include disqus.html %}
+                </div>  
                 <!-- /.row -->
             </div>
             <!-- /.container -->
@@ -150,10 +154,9 @@
         window.usabilla_live = lightningjs.require("usabilla_live", "//w.usabilla.com/75008a3e08ca.js");
         /*]]>{/literal}*/</script>
         <!-- end usabilla live embed code -->
-        <div class="container">
-            {% include disqus.html %}
-            </div>  
-            <script>(function(){var t,e,s,n="ss-widget",r="script",a=document,o=window;o.SS_WIDGET_TOKEN="tt-911c14",o.SS_ACCOUNT="sriramdasbalaji.surveysparrow.com",o.SS_SURVEY_NAME="AzureDevOps-labs-feedback-survey";a.getElementById(n)||(t=a.getElementsByTagName(r),s=t[t.length-1],e=a.createElement(r),e.type="text/javascript",e.async=!0,e.id=n,e.src=["https://","sriramdasbalaji.surveysparrow.com/widget/",o.SS_WIDGET_TOKEN].join(""),s.parentNode.insertBefore(e,s))})();</script>   
+
+
+           
 </body>
 {% include google_analytics.html %} {% include gototop.html %}
 
