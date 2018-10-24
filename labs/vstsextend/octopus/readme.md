@@ -196,7 +196,7 @@ In this lab, we are using Azure App Service as the deployment target.
 
    ![O8](images/NewDeploymentTarget.png)
 
-1. In create deployment target page provide **Display Name**, choose **Environment** from the dropdown, provide **Target Roles**, select the **Account** which was created earlier and select **Azure Web App** from the drpdown as shown below.
+1. In create deployment target page provide **Display Name**, choose **Environment** from the dropdown, provide **Target Roles** which are nothing but tags, select the **Account** which was created earlier and select **Azure Web App** from the drpdown as shown below.
 
    ![O9](images/Createdeploymenttarget.png)
 
