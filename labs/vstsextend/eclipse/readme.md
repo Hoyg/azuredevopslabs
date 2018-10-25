@@ -20,7 +20,7 @@ This lab will walk you through a typical end-to-end workflow for a Java develope
 
 In this lab, you will
 
-* Provision a Azure DevOps Organization team project with some sample data and users
+* Provision a Azure DevOps Organization team project with sample data and users
 * Install **Eclipse Photon** and **Team Explorer Everywhere**, the Azure DevOps plug-in for Eclipse
 * Install and explore **Azure Toolkit for Eclipse**
 * Setup an Azure Build pipeline to build and test the code, then push it to a Azure Container Registry
@@ -36,7 +36,7 @@ In this lab, you will
 
 1. You will need the [**Docker Integration**](https://marketplace.visualstudio.com/items?itemName=ms-vscs-rm.docker){:target="_blank"} extension installed and enabled on your Azure DevOps Organization.
 
-1. You will need to provision a team project with [Azure DevOps Demo Generator](https://vstsdemogenerator.azurewebsites.net/?TemplateId=77373&Name=myshuttledocker). The template **MyShuttleDocker** is used here.
+1. You will need to provision a team project with [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77371&Name=MyShuttle). The template **MyShuttle** is used here.
 
 
 ## Exercise 1: Setting up Eclipse
@@ -71,11 +71,24 @@ Having setup an Azure DevOps Organization project, we will now set up Eclipse.
 
     ![Checkout from Team Services Git](images/showtee2.png) 
 
-1. From the **Team Explorer** view, click the link to **Connect to a Team Foundation Server or Team Services account**, then type in the name of the Azure DevOps Organization (`https://dev.azure.com/{your-account-name}`) and press the **Next** button.
+1. From the **Team Explorer** view, click the link to **Connect to a Team Foundation Server or Team Services account**, then type in the name of the Azure DevOps Organization (`https://{your-account-name}.visualstudio.com`) and press the **Next** button.
 
-    The "Follow the instructions to complete sign-in" window will pop up. Click on the hyperlink to be redirected to the Device Login page in a browser on the VM (Note that link may have a black background for security purposes).
+    ![Connect](images/connect.png)
 
-1. Log in to authenticate the Azure DevOps Organization.
+1. Choose the radio button next to "Connect to a Team Foundation Server or Azure DevOps Services account" then press the "Servers..." button. In the "Add/Remove Team Foundation Server" panel, click "Add..." and type in the name of the Azure DevOps organization (https://{your-account-name}.visualstudio.com) in the "Add Team Foundation Server" panel. Then press the OK button.
+
+1. The "Follow the instructions to complete sign-in" window will pop up. Click on the hyperlink to be redirected to the Device Login page in a browser on the VM (may have a black background for security purposes).
+
+    ![Device Login](images/mscode.png)
+
+1. Copy the code in the text field in Eclipse and paste it into the browser page, then press the "Continue" button. Then sign in with your credentials used to access Azure DevOps Services. If you get the credentials wrong you can try again by closing Eclipse, deleting ~/.microsoft/Team Explorer/4.0/*, and restarting Eclipse.
+
+    ![Device Login Page](images/deviceloginpage.png)
+
+1. Back in Eclipse, press the OK button in the device login window. The Azure DevOps organization should now show up in the list of servers to connect to. Press the "Close" button to close the current window.
+
+    ![Accounts](images/vstsaccounts.png)
+
 
 1. Choose the **Team Project** that you provisioned with *Azure DevOps Demo Generator* at the start of this lab and click **Finish**.
 
@@ -85,7 +98,7 @@ Next, clone the **Azure Repos Git repository** to a local Git repository and imp
 
 1. In the **Team Explorer** panel, choose **Git Repositories**. This will list all the Git repositories in the project.
 
-1. Right-click the **MyShuttleDocker** repo in the team project and select **Import Repository**
+1. Right-click the **MyShuttle** repo in the team project and select **Import Repository**
 
     ![Select the VSTS repo](images/eclipse-select-repo.png "Select the VSTS repo")
 
@@ -103,7 +116,7 @@ Next, clone the **Azure Repos Git repository** to a local Git repository and imp
 
     ![Import the Maven project](images/eclipse-import-existingmavenprojects.png "Import the Maven project")
 
-    For the root directory, click on the Browse button or type in the root directory path of /home/vmadmin/MyShuttleDocker. The pom.xml file should appear under projects to indicate the Maven project. Additionally, click the checkbox next to **Add project(s) to working set** to add myshuttle to the working set to access in the Package Explorer window as a separate project. Then click the Finish button
+    For the root directory, click on the Browse button or type in the root directory path of "C:\Users\{your-user-name}\git\MyShuttle". The pom.xml file should appear under projects to indicate the Maven project. Additionally, click the checkbox next to **Add project(s) to working set** to add myshuttle to the working set to access in the Package Explorer window as a separate project. Then click the Finish button
 
     ![Import the Maven project](images/eclipse-select-mavenproject.png "Import the Maven project")
 
@@ -121,7 +134,7 @@ In this task, you will configure the Azure Pipelines build definition that will 
 
     ![Create Azure Container Registry](images/createacr.png)
 
-1. Return to  Azure DevOps Organization and click **Pipelines --> Build** hub, edit the **MyShuttleDocker-Maven-CI** build. This build definition contains a *maven* task to build the pom.xml file. In the  maven task, set the following parameter values
+1. Return to  Azure DevOps Organization and click **Pipelines --> Build** hub, edit the **MyShuttleDockerBuild** build. This build definition contains a *maven* task to build the pom.xml file. In the  maven task, set the following parameter values
 
    |Parameter|Value|Notes|
    |---------|-----|-----|
@@ -133,14 +146,14 @@ In this task, you will configure the Azure Pipelines build definition that will 
 
 1. There is a **Copy** and **Publish** task to copy the artifacts to the staging directory and publish to Azure DevOps (or a file share).
 
-1. Next we use the **Docker Compose** task to build and publish the images. The settings of the 2 Docker compose tasks - **Build services** and **Push services** are as follows:
+1. Next we use the **Docker Compose** task to build and publish the images. The settings of the 2 Docker compose tasks - **Build an image** and **Push an image** are as follows:
 
     |Parameter|Value|Notes|
     |---------|------|-----|
     |Container Registry Type|Azure Container Registry|This is to connect to the Azure Container Registry you created earlier|
     |Azure Subscription|Your Azure subscription|You need to authorize the subscription that contains your registry|
     |Azure Container Registry|Your registry|You need to select the Azure Container registry you created earlier|
-    |Additional Image Tags|`$(Build.BuildNumber)`|Sets a unique tag for each instance of the build|
+    |Image Name|`Web:$(Build.BuildNumber)`|Sets a unique tag for each instance of the build|
     |Include Latest Tag|Check (set to true)|Adds the `latest` tag to the images produced by this build|
 
 1. Click the "Save and Queue" button to save and queue this build. Make sure you are using the **Hosted Ubuntu 1604** agent.
@@ -184,32 +197,38 @@ In this exercise, we will setup a Release pipeline to deploy the web application
  
     We could configure *Continuous Deployment* to deploy the web app when a new image is pushed to the registry, within the Azure portal itself. However, setting up an Azure Pipeline will provide more flexibility and additional controls (approvals, release gates, etc.) for application deployment.
 
-1. Back in Azure DevOps account, select **Releases** from the **Pipelines** hub. Select the Release definition and click *Edit Pipeline*.
+1. Back in Azure DevOps account, select **Releases** from the **Pipelines** hub. Select the Release definition **MyShuttleDockerRelease** and click *Edit Pipeline*.
 
      ![editrelease](images/editrelease.png)
 
-1. Hover the mouse on **Tasks** and select **Environment 1**. Configure the environment as below - 
+1. Hover the mouse on **Tasks** and select **Azure-Dev**. Configure the environment as below - 
 
-    * Pick the Azure subscription
-    * Select **Linux App** for the **App Type**
+    * Pick the Azure subscription and click **Authorize** to authorize the credentials
     * Enter the **App Service** that you created
-    * Enter the **Container Registry** login server in the form of `containerregistry`.azurecr.io
-    * Enter ***web*** for the **Repository**
 
     ![VSTS Release Defintion](images/vsts-cd-webapp.png)
 
 1. Select the **Execute Azure MYSQL:SqlTaskFile** task, choose the Azure subscription, and provide the DB details which were noted down earlier during the creation of the database server. 
 
-    * Select the *Host Name* from the drop down. You can find this value in the **Properties** page of the created MYSQL database in Azure portal.
-    * Enter the *Server Admin Login*. You can find this value in the **Properties** page of the created MYSQL database in Azure portal.
-    * Enter the *Password*. This is the password provided during the creation of MYSQL database in Azure portal.
-    * A *MYSQL script* that is version controlled and provided here which creates the database, tables and populate records.
+    * Select the *Host Name* from the drop down. 
+    * A version controlled *MYSQL script* is provided here which creates the required database *alm*, tables and finally, populate records.
 
     ![MySQL DB](images/mysqlcreatetask.png)
 
-    > After the database, tables and records are created for the *first time*, we need to disable the task for further deployments. Right click on the task and select **Disable selected task(s)** and save.
+1. For the parameters - **$(DBUSER)** and **$(DBPASSWORD)**, click the **Variables** section and enter the corresponding values -
 
-1. Select the **Deploy Azure App Service** task and make sure that these settings are reflected correctly. Note that the task allows you to specify the **Tag** that you want to pull. This will allow you to achieve end-to-end traceability from code to deployment by using a build-specific tag for each deployment. For example, with the Docker build tasks  you can tag your images with the *Build.Number* for each deployment.
+    * **$(DBSERVER)** corresponds to the **SERVER NAME** value in the *Properties* section of the created MYSQL server in Azure Portal. 
+    * **$(DBUSER)** corresponds to the **SERVER ADMIN LOGIN NAME** value in the *Properties* section of the created MYSQL server in Azure Portal.
+    * **$(DBPASSWORD)** corresponds to the **Password** provided during the creation of the MYSQL server in Azure Portal.
+
+    ![MySQL DB](images/variables.png)
+
+1. Select the **Deploy Azure App Service** task and make sure that the following values are provided. Note that the task allows you to specify the **Tag** that you want to pull. This will allow you to achieve end-to-end traceability from code to deployment by using a build-specific tag for each deployment. For example, with the Docker build tasks  you can tag your images with the *Build.Number* for each deployment.
+
+    * Azure Subscription - Choose the correct Azure subscription from drop down.
+    * Registry or Namespace - Provide the value of **Login server** of the created **Container Registry**. You will find it in the *Overview* section.
+    * Image -  Provide the value as **web**. This is where the container image is stored after build.
+    * Tag - Provide the value as **$(Build.BuildNumber)**.
 
     ![Build Tags](images/vsts-buildtag.png)
 
@@ -221,22 +240,27 @@ In this exercise, we will setup a Release pipeline to deploy the web application
 
 ## Exercise 5: Configuring MySQL connection strings in the Web App
 
-1. Navigate to the Web app that you have created. Click **Application Settings** and scroll down to the **Connection Strings** section
+1. From the Azure portal, select the Web app you provisioned. Select **Application Settings** and scroll down to the **Connection Strings** section.
 
-1. Add a new MySQL connection string with **MyShuttleDb** as the name and the following string - `jdbc:mysql://`**`{MySQL Server Name}`**`.mysql.database.azure.com:3306/alm?useSSL=true&requireSSL=false&autoReconnect=true&user=`**`{your user name}`**`@`**`{MySQL Server Name}`**`&password=`**`{your password}`**. Replace the following with values that you have noted down
+1. Click **+ Add new connection** string, change the type to **MySQL**, name as **MyShuttleDb** and paste the following string for the value and replace MySQL Server Name, your user name and your password with the appropriate values -
 
-    * MYSQL Server Name - **Server Name** in the MYSQL Server *Properties* page
-    * Your user name -  **SERVER ADMIN LOGIN NAME** in the MYSQL Server *Properties* page  
-    * Your password -**Password** that you provided during the creation of MYSQL server in Azure
+    > `jdbc:mysql://{MySQL Server Name}:3306/alm?useSSL=true&requireSSL=false&autoReconnect=true&user={your user name}&password={your password}`
 
-1. Click **Save** to save the connection string.
+    * MySQL Server Name : Value that you copied previously from the MySQL server Properties.
+    * your user name : Value that you copied previously from the MySQL server Properties.
+    * your password : Value that you provided during the creation of MYSQL database server in the Deploy to Azure phase.
+
+    ![MYSQL DB Connection](images/mysqldbconnstring.png)
+
+1. Click on Save to save the connection string.
+
+You have now setup and configured all the resources that is needed to deploy and run the MyShuttle application.
 
 1. You should be able to login to the application now. Return to the login page and try logging in using any of the below *username/password* combination:
 
     * *fred/fredpassword*
     * *wilma/wilmapassword*
-    * *betty/bettypassword*
-    
+    * *betty/bettypassword*    
 
 ## Next: End to End workflow with Eclipse
 
