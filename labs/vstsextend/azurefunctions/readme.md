@@ -205,7 +205,7 @@ In this exercise, you will look at the build definition to get an insight of how
 
     ![PartsUnlimited Function](images/function.png)
 
-    > As the Azure Function Apps uses the Azure App Service infrastructure, the function app that is being used here in the App Service hosting plan, your function app can use all the features of App Service. 
+    > As the Azure Function Apps uses the Azure App Service infrastructure, the function app referred here can use all the features of an App Service. 
 
 1. Click on *Save*. In the Save dialog box, click OK. To test the release definition, click **Release** and then **Create Release**.
 
