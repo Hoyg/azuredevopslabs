@@ -2,7 +2,7 @@
 title: Working with Eclipse - Getting started
 layout: page
 sidebar: vsts2
-permalink: /labs/vstsextend/eclipse/
+permalink: /labs/azuredevops/eclipse/
 folder: /labs/vstsextend/eclipse/
 ---
 
