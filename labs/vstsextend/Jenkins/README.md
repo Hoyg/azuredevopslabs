@@ -2,7 +2,7 @@
 title: Integrating Jenkins CI with Azure Pipelines
 layout: page
 sidebar: vsts2
-permalink: /labs/vstsextend/jenkins/
+permalink: /labs/azuredevops/jenkins/
 folder: /labs/vstsextend/jenkins/
 ---
 
