@@ -78,7 +78,7 @@ In this task, you will enforce quality on the master branch by creating branch p
 
 1. Check **Check for linked work items** and set the radio button to **Required**.
 
-    ![Branch Policy](/images/branchpolicy.png)
+    ![Branch Policy](images/branchpolicy.png)
 
 1. Under **Build validation**, click **Add build policy** and select **MyShuttleDockerBuild** from the list of build definitions and click **Save**.
 

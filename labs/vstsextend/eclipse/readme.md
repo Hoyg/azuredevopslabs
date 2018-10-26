@@ -250,11 +250,9 @@ In this exercise, we will setup a Release pipeline to deploy the web application
     * your user name : Value that you copied previously from the MySQL server Properties.
     * your password : Value that you provided during the creation of MYSQL database server in the Deploy to Azure phase.
 
-    ![MYSQL DB Connection](images/mysqldbconnstring.png)
+      ![MYSQL DB Connection](images/mysqldbconnstring.png)
 
 1. Click on Save to save the connection string.
-
-You have now setup and configured all the resources that is needed to deploy and run the MyShuttle application.
 
 1. You should be able to login to the application now. Return to the login page and try logging in using any of the below *username/password* combination:
 
