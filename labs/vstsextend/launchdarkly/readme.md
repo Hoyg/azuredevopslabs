@@ -2,7 +2,7 @@
 title: Feature Flag Management with LaunchDarkly and AzureDevOps
 layout: page
 sidebar: vsts2
-permalink: /labs/vstsextend/launchdarkly/
+permalink: /labs/azuredevops/launchdarkly/
 folder: /labs/vstsextend/launchdarkly/
 ---
 
