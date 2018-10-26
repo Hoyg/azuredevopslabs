@@ -82,7 +82,7 @@ The Azure Functions created in this exercise will act as a switching proxy or th
 
    > This lab uses CSharp as script language for the function, but a function can be created in any supported language.
 
-1. Select HttpTriggerCSharp1 in Functions and click </>Get Function Url.
+1. Select HttpTrigger1 in Functions and click </>Get Function Url.
 
     ![httptrigger](images/httptrigger.png)
     
@@ -136,7 +136,7 @@ The Azure Functions created in this exercise will act as a switching proxy or th
 
     ```
 
-1. In the Azure portal, navigate to the resource group which was configured in the **Create required Azure resources** exercise. Click **PartsUnlimited-API-XXXXXXX.azurewebsites.net** and click the Copy icon under the URL section to copy the whole URL. Copy and replace the value of `https://<<**YourAPIAppServiceUrl**>>` in url variable with API app service name.
+1. Navigate to the resource group which was configured in the **Create required Azure resources** exercise. Click **PartsUnlimited-API-XXXXXXX.azurewebsites.net** and click the Copy icon under the URL section to copy the whole URL. Copy and replace the value of `https://<<**YourAPIAppServiceUrl**>>` in url variable with API app service name.
 
 1. In Visual Studio, open **StoreController.cs** from the path **PartsUnlimitedWebsite > Controllers > StoreController.cs**.
 
@@ -204,6 +204,8 @@ In this exercise, you will look at the build definition to get an insight of how
 1. Select the third task to deploy **PartsUnlimited Azure Function** and configure the inputs as shown below. Choose the pre-created **Azure functions** name for the **App Service Name** field from the drop down.
 
     ![PartsUnlimited Function](images/function.png)
+
+    > As the Azure Function Apps uses the Azure App Service infrastructure, the function app that is being used here in the App Service hosting plan, your function app can use all the features of App Service. 
 
 1. Click on *Save*. In the Save dialog box, click OK. To test the release definition, click **Release** and then **Create Release**.
 
