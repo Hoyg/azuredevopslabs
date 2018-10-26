@@ -58,15 +58,11 @@ In this task you will start a test session, discover a bug in the MyShuttle app 
 
 1. Once the bug has been created, click the Stop button in the Test Extension toolbar to end the test session.
 
-1. Navigate to your Azure DevOps Organization team project. Click **Boards** to navigate to the Work Hub. In the search toolbar, enter "driver" into the Search Work Items box and press enter or click the magnifying glass icon.
+1. Navigate to your Azure DevOps Organization team project. Click **Boards** to navigate to the Work Hub. In the search toolbar, enter "driver" into the Search Work Items box and press enter or click the magnifying glass icon. You should see the Bug that you logged. Take a moment to look at the Repro Steps.
 
     ![Search for the Bug](images/search-bug.png)
 
-1. You should see the Bug that you logged. Take a moment to look at the Repro Steps.
-
-    ![Bug details](images/bug-details.png)
-
-1. Assign the Bug to yourself and change the state to Active. Click Save.
+1. Assign the Bug to yourself and change the state to Approved. Click Save.
 
    {% include note.html content= "Now it's time to roll up your sleeves to detect the cause and find a fix for the bug. But before we make any code changes, we will create a **branch**. In the world of Git, teams generally create new branches to isolate changes for a feature or a bug fix from the master branch and other work. They commit and push changes to the remote branch. The changes are then presented to the rest of the team for review and approval via **Pull Request** before they are merged to the *master* branch. You can establish requirements for all pull requests to ensure high quality code and protect important branches with **Branch Policy**." %}
 
@@ -84,7 +80,7 @@ In this task, you will enforce quality on the master branch by creating branch p
 
     ![Branch Policy](/images/branchpolicy.png)
 
-1. Under **Build validation**, click **Add build policy** and select **MyShuttleDocker-Maven-CI** from the list of build definitions and click **Save**.
+1. Under **Build validation**, click **Add build policy** and select **MyShuttleDockerBuild** from the list of build definitions and click **Save**.
 
     ![Policy configuration](images/policy.png)
 
@@ -102,7 +98,7 @@ In this task you will create a branch of the code to fix the Bug. You will then 
 
     ![New query](images/newquery.png)
 
-1. You can run an existing query by double clicking it. Double click **Bugs** to get the list of bugs in the project.
+1. You can run an existing query by double clicking it. Double click **Bugs** query under *Shared Queries* to get the list of bugs in the project.
 
     ![Confirm the bug is correctly assigned and in VSTS](images/getbugsquery.png)
 
@@ -116,7 +112,7 @@ In this task you will create a branch of the code to fix the Bug. You will then 
 
     ![New branch](images/createbranch.png)
 
-1. Return to Eclipse. In the project view of Eclipse,right-select the project, choose **Team** and then **pull** to fetch the latest changes, including the new branch just created. Click **Finish** in the next pop-up, enter password if prompted, for the operation to complete.
+1. Return to Eclipse. In the project view of Eclipse,right-select the project, choose **Team** and then **Pull...** to fetch the latest changes, including the new branch just created. Click **Finish** in the next pop-up, enter password if prompted, for the operation to complete.
 
     ![Fetch Changes](images/gitpull.png)
 
@@ -144,11 +140,11 @@ In this task you will create a branch of the code to fix the Bug. You will then 
         session.setAttribute("driverFeeTotal", totalDriverFee);
     ```
 
-1. Save the file.  Commit the changes by right clicking the file and selecting **Team->Commit**. Enter *Fixing totals bug #{ID of bug}* as the commit message. By putting the # symbol followed by an ID of a work item in a commit message, Azure DevOps will automatically associate the work item with the commit when it's pushed to the server. In the example of the screenshot, the ID is #1350. Click **Commit and Push**to push the changes to Azure DevOps Organization.
+1. Save the file.  Commit the changes by right clicking the file and selecting **Team->Commit**. Enter *Fixing totals bug #{ID of bug}* as the commit message. By putting the # symbol followed by an ID of a work item in a commit message, Azure DevOps will automatically associate the work item with the commit when it's pushed to the server. In the example of the screenshot, the ID is #1350. Click **Commit and Push** to push the changes to Azure DevOps Organization.
 
     ![Commit and Push](images/eclipse-newcommit.png)
 
-1. Now that the fix has been pushed to Azure DevOps on a branch, you can create a *Pull Request. This will be done in Azure DevOps following the standard process for pull requests. Under the **Repos** hub, click on Files in the MyShuttleDocker repo and there should be a notification that you updated the `fixtotalsBug` branch. Click the link next to it, **Create a pull request**
+1. Now that the fix has been pushed to Azure DevOps on a branch, you can create a **Pull Request**. This will be done in Azure DevOps following the standard process for pull requests. Under the **Repos** hub, click on Files in the MyShuttleDocker repo and there should be a notification that you updated the `fixtotalsBug` branch. Click the link next to it, **Create a pull request**
 
     ![Create Pull Request](images/pullrequest.png)
 
@@ -180,11 +176,11 @@ In this task you will create a branch of the code to fix the Bug. You will then 
 
     ![Complete the merge](images/complete-merge.png)
 
-1. The PR completion triggers a new build off the master branch if CI trigger is set, which in turn will trigger a release if CD trigger is enabled. If not enabled, click *Builds* under **Pipelines** and queue a new build. _It also transitions the Bug work item to Resolved state_. 
+1. The PR completion triggers a new build off the master branch if CI trigger is set, which in turn will trigger a release if CD trigger is enabled. If not enabled, click *Builds* under **Pipelines** and queue a new build for the definition - *MyShuttleDockerBuild*. _It also transitions the Bug work item to Resolved state_. 
 
 1. When the build completes, you will see the unit test and code coverage results as well as SonarQube analysis and quality gates (if you have configured SonarQube integration).
 
-1. Click on Releases and open the latest release which should have triggered off the PR merge build completion event.
+1. Click on Releases and open the latest release which should have triggered off as *CD* the PR merge build completion event. If CD is not enabled, click *Releases* under **Pipelines** and queue a new release for the definition - *MyShuttleDockerRelease*. 
 
 1. On the Release Summary page, you will see the linked Bug work item.
 
