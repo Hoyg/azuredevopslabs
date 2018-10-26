@@ -120,7 +120,7 @@ The Azure Functions created in this exercise will act as a switching proxy or th
     {
     public static class Function1
     {
-        [FunctionName("HttpTriggerCSharp1")]
+        [FunctionName("HttpTrigger1")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
             var userIdKey = req.GetQueryNameValuePairs().FirstOrDefault(q => string.Equals(q.Key, "UserId", StringComparison.OrdinalIgnoreCase));
