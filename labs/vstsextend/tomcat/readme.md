@@ -2,7 +2,7 @@
 title: Deploying a MySQL database backed Java app to Tomcat on Azure with Azure DevOps
 layout: page
 sidebar: vsts2
-permalink: /labs/vstsextend/tomcat/
+permalink: /labs/azuredevops/tomcat/
 folder: /labs/vstsextend/tomcat/
 ---
 
