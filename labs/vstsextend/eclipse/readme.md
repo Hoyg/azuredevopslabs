@@ -217,7 +217,6 @@ In this exercise, we will setup a Release pipeline to deploy the web application
 
 1. For the parameters - **$(DBUSER)** and **$(DBPASSWORD)**, click the **Variables** section and enter the corresponding values -
 
-    * **$(DBSERVER)** corresponds to the **SERVER NAME** value in the *Properties* section of the created MYSQL server in Azure Portal. 
     * **$(DBUSER)** corresponds to the **SERVER ADMIN LOGIN NAME** value in the *Properties* section of the created MYSQL server in Azure Portal.
     * **$(DBPASSWORD)** corresponds to the **Password** provided during the creation of the MYSQL server in Azure Portal.
 
