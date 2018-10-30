@@ -167,7 +167,7 @@ In this exercise, we will setup a Release pipeline to deploy the web application
 
 1. Wait for the release is complete and then navigate to the URL `http://{your web app name}.azurewebsites.net/myshuttledev`. You should be able to see the login page.
 
-## Exercise 5: Configuring MySQL connection strings in the Web App
+## Exercise 4: Configuring MySQL connection strings in the Web App
 
 1. Navigate to the Web app that you have created. Click **Application Settings** and scroll down to the **Connection Strings** section
 
