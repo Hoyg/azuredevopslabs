@@ -1,9 +1,9 @@
 ---
 title: Docker Deployment to Linux Azure App Service using Azure DevOps
 layout: page
-sidebar: Azure DevOps2
-permalink: /labs/Azure DevOpsextend/docker/
-folder: /labs/Azure DevOpsextend/docker/
+sidebar: vsts2
+permalink: /labs/vstsextend/docker/
+folder: /labs/vstsextend/docker/
 ---
 
 Last updated : {{ "now" | date: "%b %d,%Y" }}
