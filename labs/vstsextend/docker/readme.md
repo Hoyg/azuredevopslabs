@@ -180,7 +180,7 @@ In this exercise, the source code will be modified to trigger the CI-CD.
    **Image Source** | Select the value **Azure Container Registry**
    **Registry** | Select the registry value from the dropdown
    **image** | Select the value **myhealth.web**
-   **Tag** | Select the value **latest**. This is required to map Azure Container Registry with the Web App.
+   **Tag** | Select the value **latest**. This is required to map Azure Container Registry with the Web App. 
 
    ![Update registry](images/updatereg3.png)
 
