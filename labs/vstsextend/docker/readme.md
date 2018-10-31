@@ -1,5 +1,5 @@
 ---
-title: Docker Deployment to Azure App Service (Ubuntu) using Azure DevOps
+title: Docker Deployment to Linux Azure App Service using Azure DevOps
 layout: page
 sidebar: Azure DevOps2
 permalink: /labs/Azure DevOpsextend/docker/
