@@ -1,5 +1,5 @@
 ---
-title: Docker Deployment to Azure App Service (Linux) using Azure DevOps
+title: Docker Deployment to Azure App Service (Ubuntu) using Azure DevOps
 layout: page
 sidebar: Azure DevOps2
 permalink: /labs/Azure DevOpsextend/docker/
@@ -14,18 +14,18 @@ This lab outlines the process to build custom Docker images of an [**ASP.NET Cor
 
 The Web App for Containers, allows creation of custom [Docker](https://www.docker.com/what-docker){:target="_blank"} container images, easily deploy and then run them on Azure. Combination of Azure DevOps and Azure integration with Docker will enable the following:
 
-1. Build custom Docker images using [Azure DevOps Hosted Linux agent](https://docs.microsoft.com/en-us/Azure DevOps/build-release/concepts/agents/hosted){:target="_blank"}
+1. Build custom Docker images using [Azure DevOps Hosted Linux agent](https://docs.microsoft.com/en-us/azure/devops/pipelines/agents/agents?view=vsts){:target="_blank"}
 
 1. Push and store the Docker images in a private repository
 
 1. Deploy and run the images inside the Docker Containers
 
 
-## Pre-requisites for the lab
+## Before you begin
 
 1. Refer the [Getting Started](../Setup/) page to know the prerequisites for this lab.
 
-1. Click the [Azure DevOps Demo Generator](http://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77376&Name=AzureFunctions_BuildWorkshop) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
+1. Click the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?Name=Docker&TemplateId=77363) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
 
 ## Setting up the Environment
 
@@ -44,6 +44,8 @@ The Web App for Containers, allows creation of custom [Docker](https://www.docke
    {% include tip.html content= "Use lower case letters for **DB Server Name**" %}
 
      {% include note.html content= " **ACR name** may contain alpha numeric characters only and must be between 5 and 50 characters." %}
+
+     {% include tip.html content= "At the time of writing this lab, the only location that can be used for creation of ACR and SQL is **SouthCentralUS**." %}
 
    ![Create Azure Components](images/createazurecomponents.png)
 
@@ -72,39 +74,15 @@ The Web App for Containers, allows creation of custom [Docker](https://www.docke
 
    ![ACR](images/getacrserver.png)
 
-## Setting up the Azure DevOps Project
+## Exercise 1: Configure Continuous Integration (CI) and Continuous Delivery (CD)
 
-1. Use the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?Name=Docker&TemplateId=77363) to provision the team project on your Azure DevOps Organization.
-
-   > **Azure DevOps Demo Generator** helps you create team projects on your Azure Devops Organization with sample content that include source code, work items, iterations, service endpoints, build and release definitions based on the template that you choose during the configuration.
-
-   ![Azure DevOps Demo Generator](images/DemoGenerator2.png)
-
-1. Once the team project is provisioned, click on the URL to navigate to the team project.
-
-   ![Azure DevOps Demo Generator](images/DemoGenerator1_2.png)
-
-## Exercise 1: Endpoint Creation
-
-The connection between Azure DevOps and Azure is not automatically established during the team project provisioning, and hence the endpoints need to be created manually. This endpoint will be used to connect **Azure DevOps** with **Azure**. Follow the steps outlined below to create the endpoint.
-
-1. In Azure DevOps home page, click on **Project settings** gear icon and then click on **Service connections** option to navigate to the **Service connections** screen.
-Click on the **+New Service Endpoint** dropdown and select **Azure Resource Manager** option. Provide  `Connection name`, select the `Azure Subscription` and select the
-appropriate `Resource Group` which we have created earlier, and then click on **OK**. The Azure credentials will be required to authorize the connection.
-
-   ![Endpoint Creation](images/endpoint.png)
-
-   {% include important.html content= "Disable the pop-up blocker in your browser. If a blank screen is displayed after the **OK** button is clicked, retry the step." %}
-
-## Exercise 2: Configure Continuous Integration (CI) and Continuous Delivery (CD)
-
-Now that the connection is established, the **Azure endpoint** and the **Azure Container Registry** need to be manually configured for the build and release definitions. The dacpac will also be deployed to the mhcdb database so that the schema and data is configured for the backend.
+Now that the required resources are provisioned, the **Build** and the **Release** definition need to be manually configured with the new information. The dacpac will also be deployed to the mhcdb database so that the schema and data is configured for the backend.
 
 1. Navigate to the **Builds** option under the **Pipelines** tab. Select the build definition `MHCDocker.build`, and select the **Edit** option.
 
    ![Build](images/build1_4.png)
 
-1. In the **Run services, Build services and Push services** task, update the **Azure subscription** and **Azure Container Registry** with the endpoint component from the dropdown (use the arrow keys to choose **Azure Container Registry** for the first time) and click on **Save**.
+1. In the **Run services, Build services and Push services** task, authorize (only for the first task) the **Azure subscription** and update **Azure Container Registry** with the endpoint component from the dropdown and click on **Save**.
 
    ![Tasks](images/build5.png)
 
@@ -119,7 +97,7 @@ Now that the connection is established, the **Azure endpoint** and the **Azure C
    |![Push services](images/icon.png) **Push services**| pushes **myhealth.web** image tagged with **$(Build.BuildId)** to container registry|
    |![Publish Build Artifacts](images/publish-build-artifacts.png) **Publish Build Artifacts**| used to share dacpac for database deployment through Azure DevOps artifacts|
 
-1. Navigate to the **Releases** section under the **Pipelines** tab. Select the release definition `MHCDocker.release`, click on **Edit** option and then click on the **Tasks** section.
+1. Navigate to the **Releases** section under the **Pipelines** tab. Select the release definition `MHCDocker.release`, click **Edit Pipeline** option and then click on the **Tasks** section.
 
    ![Release](images/release1_6.png)
 
@@ -130,7 +108,7 @@ Now that the connection is established, the **Azure endpoint** and the **Azure C
    |Agents|Usage Details|
    |------|-----|
    |**DB deployment**|The **Hosted VS2017** agent is used to deploy the database|
-   |**Web App deployment**|The **Hosted Linux Preview** agent is used to deploy the application to the Linux Web App|
+   |**Web App deployment**|The **Hosted Ubuntu 1604** agent is used to deploy the application to the Linux Web App|
 
 1. Under the **Execute Azure SQL:DacpacTask** section, select the **Azure Subscription** from the dropdown.
 
@@ -150,7 +128,7 @@ Now that the connection is established, the **Azure endpoint** and the **Azure C
 
    >The **Database Name** is set to **mhcdb**, the **Server Admin Login** is set to **sqladmin** and the **Password** is set currently to **P2ssw0rd1234**.
 
-## Exercise 3: Initiating the CI-CD with source Code Change
+## Exercise 3: Initiate the CI Build and Deployment through code commit 
 
 In this exercise, the source code will be modified to trigger the CI-CD.
 
@@ -180,11 +158,9 @@ In this exercise, the source code will be modified to trigger the CI-CD.
    **Image Source** | Select the value **Azure Container Registry**
    **Registry** | Select the registry value from the dropdown
    **image** | Select the value **myhealth.web**
-   **Tag** | Select the value **latest**. This is required to map Azure Container Registry with the Web App. 
+   **Tag** | Select the value **latest**. This is required to map Azure Container Registry with the Web App.
 
    ![Update registry](images/updatereg3.png)
-
-   ![Update registry](images/updatereg4.png)
 
     {% include tip.html content= "The Continuous Deployment can be configured to deploy the web app to the designated server whenever a new docker image is pushed to the registry on the Azure portal itself. However, setting up an Azure DevOps CD pipeline will provide better flexibility and additional controls (approvals, release gates, etc.) for the application deployment." %}
 
@@ -208,8 +184,8 @@ In this exercise, the source code will be modified to trigger the CI-CD.
 
     ![Final Result](images/finalresult.png)
 
-    {% include tip.html content= "Use the credentials **Username**: `user` and **Password**: `P2ssw0rd@1` to login to the **HealthClinic** web application." %}
+1. Use the credentials **Username**: `user` and **Password**: `P2ssw0rd@1` to login to the **HealthClinic** web application.
 
 ## Summary
 
-Using **Azure DevOps** and **Azure**, DevOps can be configured for dockerized applications by leveraging docker capabilities enabled on Azure DevOps Linux Hosted Agents.
+With **Azure DevOps** and **Azure**, we have configured a dockerized application by leveraging docker capabilities enabled on Azure DevOps Ubuntu Hosted Agent.
