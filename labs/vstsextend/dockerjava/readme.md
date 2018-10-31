@@ -18,7 +18,7 @@ In this lab, you will learn how you can set up a Continuous Integration (CI) and
 
 This lab will show how you can
 
-* Create a new Azure App Service and configure it to use Apache Tomcat
+* Create a new Azure App Service with Container and configure it to use Apache Tomcat
 * Create a new MySQL database
 * Use Azure App Service Task to deploy a WAR file
 
@@ -28,9 +28,9 @@ This lab will show how you can
 
 1. Use the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77371&Name=MyShuttle) to provision the project to your Azure DevOps Org. Use the **MyShuttle** template.
 
-  {% include note.html content= "If you are following this lab from "Working with Jenkins, VSTS and Azure, you can skip the next two exercises and go to [deploy](#deploying-to-an-azure-web-app-for-containers)" %}
+  {% include note.html content= "If you are following this lab from "Working with Jenkins, VSTS and Azure, you can skip the next two exercises and go to [deploy](#exercise-2-deploying-to-an-azure-web-app-for-containers)" %}
 
-## Exercise 2:  Configuring a CI pipeline to build and publish Docker image
+## Exercise 1:  Configuring a CI pipeline to build and publish Docker image
 
 In this task, you will configure a CI pipeline that will build and push the image to Azure Container Registry.
 
@@ -63,6 +63,7 @@ In this task, you will configure a CI pipeline that will build and push the imag
     |Target Folder|$(build.artifactstagingdirectory)|Copy it to the default staging folder|
 
 1.  Next, we have a **Publish** task to publish the build artifacts to Azure Pipelines.
+
     | Parameter | Value | Notes |
     | --------------- | ---------------------------- | ----------------------------------------------------------- |
     |Path to publish| $(build.artifactstagingdirectory)| Copy contents from the staging folder|
@@ -100,7 +101,7 @@ In this task, you will configure a CI pipeline that will build and push the imag
 
     ![Explore Container Registry](images/exploreacr.png)
 
-## Exercise 3: Deploying to an Azure Web App for containers
+## Exercise 2: Deploying to an Azure Web App for containers
 
 In this exercise, we will setup a Release pipeline to deploy the web application to an Azure web app. First,let's create a Web App for Container with MYSQL.
 
@@ -167,7 +168,7 @@ In this exercise, we will setup a Release pipeline to deploy the web application
 
 1. Wait for the release is complete and then navigate to the URL `http://{your web app name}.azurewebsites.net/myshuttledev`. You should be able to see the login page.
 
-## Exercise 4: Configuring MySQL connection strings in the Web App
+## Exercise 3: Configuring MySQL connection strings in the Web App
 
 1. Navigate to the Web app that you have created. Click **Application Settings** and scroll down to the **Connection Strings** section
 
