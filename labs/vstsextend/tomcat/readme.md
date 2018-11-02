@@ -12,7 +12,7 @@ Last updated : {{ "now" | date: "%b %d,%Y" }}
 
 In this lab, you will learn how you can use Azure Pipelines to deploy a Java web application to [Apache Tomcat](http://tomcat.apache.org/){:target="_blank"} with a MySQL database on Azure. Apache Tomcat is an open-source Java Servlet Container developed by the Apache Software Foundation (ASF). MySQL is a very popular open-source relational database management system.
 
-For this lab, you will use Azure App Service and Azure Database for MySQL, a relational database service based on the open source MySQL Server engine. It is a fully managed database as a service,  capable of handing mission-critical workload with predictable performance and dynamic scalability.
+For this lab, you should use Azure App Service and Azure Database for MySQL, a relational database service based on the open source MySQL Server engine. It is a fully managed database as a service,  capable of handing mission-critical workload with predictable performance and dynamic scalability.
 
 ### What's covered in this lab
 
@@ -29,14 +29,14 @@ This lab will show how you will
 
 ## Exercise 1: Creating Azure Web App and MySQL database
 
-1. Click the below button to provision a Website and MySQL Database together to start developing even faster.
+1. Click on the below button to provision a Website and MySQL Database together to start developing even faster.
 
     [![Tomcat Configuration](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.WebSiteMySQLDatabase){:target="_blank"}
 
 1. This template provides two MySQL options :
 
     - **Azure Database for MySQL** provides a managed database service for app development. ***You will choose this option.***
-    - **MySQL In app** is an App Service feature where MySQL database is created for your web app. In this scenario, MySQL server is running on the same instance side by side with your web server hosting the site. This is recommended for development purposes and has no additional cost.
+    - **MySQL In app** is an App Service feature whereas MySQL database is created for your web app. In this scenario, MySQL server is running on the same instance, side by side with your web server hosting the site. This is recommended for development purposes and has no additional cost.
 
     ![Create Web App+MySQL](images/createwebappmysql.png)
 
@@ -56,7 +56,7 @@ This lab will show how you will
 
 Next, navigate to the Web app that you have created. As you are deploying a Java application, you need to change the web app's web container to Apache Tomcat.
 
-1. Click **Application Settings**. To change it to Tomcat, you will first need to install Java. Select a **Java Version** to install and then change **Web container** to use Apache Tomcat. For this purpose of the lab, you will choose ***Java 8*** and ***Apache Tomcat 9.0*** though the version number would not matter much for the simple app that we are deploying.
+1. Click on **Application Settings**. To change it to Tomcat, you will first need to install Java. Select a **Java Version** to install and then change **Web container** to use Apache Tomcat. For this purpose of the lab, you will choose ***Java 8*** and ***Apache Tomcat 9.0*** though the version number would not matter much for the simple app that we are deploying.
 
     ![Setting Web container to Tomcat](images/webcontainer.png)
 
@@ -66,9 +66,9 @@ Next, navigate to the Web app that you have created. As you are deploying a Java
 
     Next, you need to update the connection strings for the web app to connect to the database correctly. There are multiple ways you can do this - but for the purpose of this lab, you will take a simple approach by updating it directly on the Azure portal.
 
-1. From the Azure portal, select the Web app you provisioned. Select **Application Settings** and scroll down to the **Connection Strings** section.
+1. From the Azure portal, select the Web app which you have provisioned. Select **Application Settings** and scroll down to the **Connection Strings** section.
 
-1. Add a new **MySQL** connection string with **MyShuttleDb** as the name, paste the following string for the value and replace **MySQL Server Name**, **your user name** and **your password** with the appropriate values -
+1. Add a new **MySQL** connection string with **MyShuttleDb** as the name, paste the following string for the value and replace the **MySQL Server Name**, **your user name** and **your password** with the appropriate values -
 
    > `jdbc:mysql://{MySQL Server Name}:3306/alm?useSSL=true&requireSSL=false&autoReconnect=true&user={your user name}&password={your password}`
 
@@ -86,15 +86,15 @@ Next, navigate to the Web app that you have created. As you are deploying a Java
     String conStr = System.getenv("MYSQLCONNSTR_MyShuttleDb");
     ````
 
-You have now setup and configured all the resources that is needed to deploy and run the MyShuttle application.
+You have now a setup and configured all the resources that is needed to deploy and run the MyShuttle application.
 
 ## Exercise 3: Deploy the changes to Web App
 
-1. Select **Pipelines** and then, **Builds**. Choose the build **MyShuttleBuild** and click **Edit Pipeline** to view the build definition.
+1. Select **Pipelines** and then, **Builds**. Choose the build **MyShuttleBuild** and click on **Edit Pipeline** to view the build definition.
 
     ![Builds](images/choosebuilddefn.png)
     
-   > The lab uses the standard **Maven** build template to compile the code, copy and publish the resulting artifacts for deployment. An additional file which is copied here is the *CreateMYSQLDB.sql* file which creates a MYSQL database and inserts a few records into it during the deployment.
+   > The lab uses the standard **Maven** build template to compile the code, copy and publish the resulting artifacts for the deployment. An additional file which is copied here is the *CreateMYSQLDB.sql* file which creates a MYSQL database and inserts a few records into it during the deployment.
 
 1. Click **Queue** to queue the build and wait for the build to complete.
 
@@ -111,7 +111,7 @@ You have now setup and configured all the resources that is needed to deploy and
 
    ![Team Build Artifact](images/addartifacts.png)
    
-1. Click **Tasks**, select **Azure-Dev** and choose the **Azure subscription** details from the drop down. Click **Authorize** and login to your Azure subscription in the pop-up window. Provide or choose the created **App Service Name** with the web app that you created previously in this lab.
+1. Click on **Tasks**, and then select **Azure-Dev** and choose the **Azure subscription** details from the drop down. Click on **Authorize** and login to your Azure subscription in the pop-up window. Provide or choose the created **App Service Name** with the web app that you created previously in this lab.
 
    ![Link Parameters](images/parameters.png)
 
@@ -136,14 +136,14 @@ You have now setup and configured all the resources that is needed to deploy and
 
 1. Wait for the release to complete. Then navigate to the Web App and select the **URL** from the overview blade. Add **/myshuttledev** context to the URL. For instance -  [http://myshuttle1.azurewebsites.net/myshuttledev](http://myshuttle1.azurewebsites.net/myshuttledev){:target="_blank"}
 
-1. Select **Login** and try logging in to the site with any one of the following credentials.
+1. Select **Login** and subsequently try logging in to the site with any one of the following credentials.
 
    |Username|Password|
    |--|--|
    |barney|barneypassword|
    |fred|fredpassword|
 
-1. If your database was setup correctly and the connection parameters are valid, you should be able to login to the portal.
+1. If your database was setup correctly and the connection parameters are valid,then you should be able to login to the portal.
 
     {% include warning.html content="If you encounter an error with ***The specified CGI application encountered an error and the server terminated the process*** message, check whether you have entered the app settings variables and values (for the database connection) correctly" %}
 
@@ -151,4 +151,4 @@ You have now setup and configured all the resources that is needed to deploy and
 
 ## Summary
 
-In this lab, you have learnt how to deploy a Tomcat based Java application with MySQL database on Azure with Azure Pipelines.
+In this lab, you have learnt how to deploy a Tomcat based Java application with MySQL database on Azure with the Azure Pipelines.
