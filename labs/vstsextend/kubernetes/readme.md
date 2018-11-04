@@ -14,9 +14,9 @@ This lab outlines the process, to compile a Docker-based ASP.NET Core web applic
 
 [**Azure Kubernetes Service (AKS)**](https://azure.microsoft.com/en-us/services/container-service/){:target="_blank"} is the quickest way to use Kubernetes on Azure. AKS provides capabilities to deploy and manage Docker containers using Kubernetes, Docker Swarm and Mesosphere DC/OS orchestrators. With AKS, customers automatically get the benefits of the open source Kubernetes without the complexity and the operational overhead. Azure DevOps helps in creating the application container Docker images for faster deployments, reliably using the continuous build option.
 
-Below are the description for the terminolgy used in the lab document to help you get started:
+Below are the descriptions for the terminolgy used in the lab document to help you get started:
 
-[**Docker**](https://www.docker.com/){:target="_blank"}: Docker is a software technology, that provides operating-system-level virtualization to easily deploy applications in a sandbox (called containers) to run on Linux.
+[**Docker**](https://www.docker.com/){:target="_blank"}: Docker is a software technology, that provides operating-system-level virtualization to easily deploy applications in a sandbox (called containers) to run on the Linux.
 
 [**Images**](https://docs.docker.com/engine/docker-overview/#docker-objects){:target="_blank"}: An image is a read-only template, with the necessary instructions required for the application to run.
 
@@ -24,9 +24,9 @@ Below are the description for the terminolgy used in the lab document to help yo
 
 [**Kubernetes**](https://kubernetes.io/){:target="_blank"}: Kubernetes is an open source system for managing containerized applications across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
 
-[**Pods**](https://kubernetes.io/docs/concepts/workloads/pods/pod/){:target="_blank"}: A Pod is the basic building block of Kubernetes and represents a executable unit of work. A Pod usually contains a single container.
+[**Pods**](https://kubernetes.io/docs/concepts/workloads/pods/pod/){:target="_blank"}: A Pod is the basic building block of Kubernetes and represents a executable unit of the work. A Pod usually contains a single container.
 
-[**Services**](https://kubernetes.io/docs/concepts/services-networking/service/){:target="_blank"}: A service tells other pods about the services your application provides.
+[**Services**](https://kubernetes.io/docs/concepts/services-networking/service/){:target="_blank"}: A service tells other pods about the services that your application provides.
 
 [**Deployments**](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/){:target="_blank"}: A Deployment controller provides declarative updates for Pods
 
@@ -40,7 +40,7 @@ In this lab, the following tasks will be performed:
 
 * Provision the Azure DevOps Team Project with a .NET Core application using the [Azure DevOps Demo Generator](https://azure devopsdemogenerator.azurewebsites.net/?Name=aks&templateId=77372){:target="_blank"} tool
 
-* Configure application and database deployment, using Continuous Deployment (CD) in Azure DevOps
+* Configure application and database deployment, using Continuous Deployment (CD) in the Azure DevOps
 
 * Initiate the build to automatically deploy the application
 
@@ -79,7 +79,7 @@ This lab requires all the pre-requisite executables to be installed and configur
 
 1. Type **az login** in the command prompt and press Enter. Authorize your login in the browser.
 
-     1. Type **az ad sp create-for-rbac -n "MySampleApp" --password P2SSWORD** in the command prompt to get the Service Principal Client and Service Principal Client Secret.
+     1. Type **az ad sp create-for-rbac -n "MySampleApp" --password P2SSWORD** in the command prompt to get the Service Principal Client and the Service Principal Client Secret.
 
      * Copy appId which is the **Service Principal Client ID**
 
@@ -154,7 +154,7 @@ Make sure that you have created the AKS project in your Azure DevOps account thr
 
      {% include tip.html content= "If your subscription is not listed or to specify an existing service principal, follow the [Service Principal creation](https://docs.microsoft.com/en-us/azure/devops/pipelines/library/connect-to-azure?view=vsts){:target=\"_blank\"} instructions." %}
 
-1. Select appropriate values from the dropdown - **Azure subscription** and **Azure Container Registry** as shown. Repeat this for the Build services, Push services and Lock services. Click the **Variables** tab.
+1. Select appropriate values from the dropdown - **Azure subscription** and **Azure Container Registry** as shown. Repeat this for the Build services, Push services and Lock services. Click on the **Variables** tab.
 
     ![updateprocessbd](images/updateprocessbd.png)
 
@@ -166,7 +166,7 @@ Make sure that you have created the AKS project in your Azure DevOps account thr
     |![icon](images/icon.png) **Push services**| pushes the docker images specified in a **docker-compose.yml** file, to the container registry|
     |![publish-build-artifacts](images/publish-build-artifacts.png) **Publish Build Artifacts**| publishes the **myhealth.dacpac** file to Azure DevOps|
 
-    **applicationsettings.json** file contains details of database connection string used to connect to Azure database which was created in the beginning of this lab.
+    **applicationsettings.json** file contains details of the database connection string used to connect to Azure database which was created in the beginning of this lab.
     
     **mhc-aks.yaml** manifest file contains configuration details of **deployments**, **services** and **pods** which will be deployed in Azure Kubernetes Service.
 
@@ -174,7 +174,7 @@ Make sure that you have created the AKS project in your Azure DevOps account thr
 
     ![updateprocessbd](images/updatevariablesbd.png)
 
-1. Navigate to the **Releases** section under the **Build & Release** menu, **Edit** the release definition **MyHealth.AKS.Release** and select **Tasks**.
+1. Navigate to the **Release** section under the **Build & Release** menu, **Edit** the release definition **MyHealth.AKS.Release** and select **Tasks**.
 
    ![release](images/release.png)
 
@@ -204,7 +204,7 @@ Make sure that you have created the AKS project in your Azure DevOps account thr
 
 In this exercise, let us trigger a build manually and upon completion, an automatic deployment of the application will be triggered. Our application is designed to be deployed in the pod with the **load balancer** in the front-end and **Redis cache** in the back-end.
 
-1. Click **Pipelines** tab and select the **Queue** button.
+1. Click on **Pipelines** tab and select the **Queue** button.
 
     ![manualbuild](images/manualbuild.png)
 
@@ -214,11 +214,11 @@ In this exercise, let us trigger a build manually and upon completion, an automa
 
     ![buildinprog1](images/buildinprog1.png)
 
-1. The build will generate and push the docker image to ACR. After the build is completes, you will see the build summary. To view the generated images in the Azure Portal, select the **Azure Container Registry** and navigate to the **Repositories**.
+1. The build will generate and push the docker image to ACR. After the build is completed, you will see the build summary. To view the generated images in the Azure Portal, select the **Azure Container Registry** and navigate to the **Repositories**.
 
     ![imagesinrepo](images/imagesinrepo.png)
 
-1. Switch back to the Azure DevOps portal. Select the **Releases** tab in the **Pipelines** section and double-click the latest release. Select **In progress** link to see the live logs and release summary.
+1. Switch back to the Azure DevOps portal. Select the **Release** tab in the **Pipelines** section and double-click on the latest release. Select **In progress** link to see the live logs and release summary.
 
     ![releaseinprog](images/releaseinprog.png)
 
@@ -266,4 +266,4 @@ In this exercise, let us trigger a build manually and upon completion, an automa
 
 ## Summary
 
-AKS reduces the complexity and operational overhead of managing a Kubernetes cluster by offloading much of that responsibility to Azure. With **Azure DevOps** and **Azure Container Services (AKS)**, we can build DevOps for dockerized applications by leveraging docker capabilities enabled on Azure DevOps Hosted Agents.
+AKS reduces the complexity and operational overhead of managing a Kubernetes cluster by offloading much of that responsibility to the Azure. With **Azure DevOps** and **Azure Container Services (AKS)**, we can build DevOps for dockerized applications by leveraging docker capabilities enabled on Azure DevOps Hosted Agents.
