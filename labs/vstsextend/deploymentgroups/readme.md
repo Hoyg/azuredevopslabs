@@ -14,17 +14,17 @@ In the earlier versions of Azure DevOps, if the application needed to be deploye
 
 All the above challenges have been handled seamlessly with the introduction of the [Deployment Groups](https://docs.microsoft.com/en-us/vsts/build-release/concepts/definitions/release/deployment-groups/){:target="_blank"}.
 
-The Deployment Group installs a deployment agent on each of the target servers in the configured group and instructs the Release Management to gradually deploy the application to all these servers that belong to the Deployment Group. Multiple pipelines can be created for roll-out deployments so that the latest version of the application could be provided in a phased manner to multiple user groups for validating the newly introduced features.
+The Deployment Group installs a deployment agent on each of the target servers in the configured group and instructs the Release Management to gradually deploy the application to all these servers that belong to the Deployment Group. Multiple pipelines can be created for the roll-out deployments so that the latest version of the application could be provided in a phased manner to the multiple user groups for validating the newly introduced features.
 
 ### What's covered in this lab?
 
-This lab covers the configuration of the deployment groups and details how the deployment groups could be used in Azure DevOps.
+This lab covers the configuration of the deployment groups and details how the deployment groups could be used in the Azure DevOps.
 
 ### Prerequisites for the lab
 
-1. Refer the [Getting Started](../Setup/) page to know the prerequisites for this lab.
+1. Refer to the [Getting Started](../Setup/) page to know the prerequisites for this lab.
 
-1. Click the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77368&Name=deploymentgroups) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
+1. Click on the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77368&Name=deploymentgroups) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
 
 ## Setting up the Environment
 
@@ -36,7 +36,7 @@ The following resources will be provisioned on the Azure using an ARM template:
 
 * Azure Network Load Balancer
 
-1. Click on the **Deploy to Azure** button to initiate the resource provisioning. It takes approximately 10-15 minutes to complete the deployment. Provide all the necessary information as shown.
+1. Click on the **Deploy to Azure** button to initiate the resource provisioning. It takes approximately 10-15 minutes to complete the deployment. Provide all the necessary information as is shown.
 
    [![Deploy to Azure](http://azuredeploy.net/deploybutton.png)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FMicrosoft%2Falmvm%2Fmaster%2Flabs%2Fvstsextend%2Fdeploymentgroups%2Farmtemplate%2Fazurewebsqldeploy.json){:target="_blank"}
 
@@ -58,7 +58,7 @@ The following resources will be provisioned on the Azure using an ARM template:
 
 Since the connections are not established during the project provisioning, the endpoints need to be configured manually.
 
-1. In the Azure DevOps home page, click on the below **Project Settings**. Click on the service connections under pipelines, and add a new service connection of type **Azure Resource Manager**. Specify the **Connection name**, select the **Subscription** from the dropdown and click on the **OK** button. This endpoint will be used to connect **Azure DevOps** and **Azure**.
+1. In the Azure DevOps home page, click on the below **Project Settings**. Click on the service connections under pipelines, and add a new service connection of type **Azure Resource Manager**. Specify the **Connection name**, select the **Subscription** from the dropdown and click on the **OK** button. This endpoint will be used to connect **Azure DevOps** and the **Azure**.
 
    ![Service endpoint](images/services.png)
 
@@ -72,13 +72,13 @@ Since the connections are not established during the project provisioning, the e
 
    * **Personal Access Token**: The Azure DevOps organizations Personal Access Token
 
-   > The configured endpoint will be used during the agent registration with deployment groups to provide the access to the Azure DevOps project.
+   > The configured endpoint will be used during the agent registration with the deployment groups to provide access to the Azure DevOps project.
 
    ![Endpoint](images/tokenbased.png)
 
 ## Exercise 2: Creating Deployment Groups and Configuring Release
 
-The Azure DevOps makes it easier to organize the servers for deploying the applications. A deployment group is a collection of machines with a deployment agent on each of them. Each machine interacts with the Azure DevOps to coordinate deployment of the app.
+The Azure DevOps makes it easier to organize the servers for deploying the applications. A deployment group is a collection of machines with a deployment agent on each of them. Each of the  machine interacts with the Azure DevOps to coordinate deployment of the app.
 
 1. From the pipelines, select the [**Deployment Groups**](https://docs.microsoft.com/en-us/vsts/build-release/concepts/definitions/release/deployment-groups/){:target="_blank"} option. Click on the **Add deployment group** button to configure.
 
@@ -114,7 +114,7 @@ The Azure DevOps makes it easier to organize the servers for deploying the appli
 
    * **Database deploy phase**: This deployment group phase executes tasks on the machines defined in the deployment group. This phase is linked to the **db** tag.
 
-     * **Deploy Dacpac**: This task is used to deploy dacpac file to the DB server.
+     * **Deploy Dacpac**: This task is used to deploy the dacpac file to the DB server.
 
        ![tag](images/db_tag.png)
 
