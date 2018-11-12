@@ -2,7 +2,7 @@
 title: Checking Vulnerabilities using WhiteSource Bolt with Azure DevOps
 layout: page
 sidebar: vsts2
-permalink: /labs/vstsextend/whitesource/
+permalink: /labs/azuredevops/whitesource/
 folder: /labs/vstsextend/whitesource/
 ---
 Last updated : {{ "now" | date: "%b %d,%Y" }}
@@ -24,22 +24,21 @@ Azure DevOps integration with WhiteSource Bolt will enable you to:
 1. Enforce open source license compliance, including dependencies’ licenses.
 1. Identify outdated open source libraries with recommendations to update.
 
-### Prerequisites for the lab
+### Before you begin
 
-1. You will need an **Azure DevOps Organization**. If you do not have one, you can sign up for free [here](https://www.visualstudio.com/products/visual-studio-team-services-vs){:target="_blank"}
+1. Refer the [Getting Started](../Setup/) page before you follow the exercises.
 
 1. Use [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?name=WhiteSource-Bolt&templateid=77362){:target="_blank"} to provision the WhiteSource project on your Azure DevOps Organization.
 
 ## Exercise 1: Activate WhiteSource Bolt
 
-After installing the extension, you will need to activate your project with an activation code.
+After the extension is installed, you will need to activate your project with an activation code.
 
 If you are a Visual Studio Enterprise subscriber, you are entitled to 6-months free subscription. You can get your activation code from the [Visual Studio Enterprise benefit page](https://my.visualstudio.com/){:target="_blank"} and follow the [instructions](https://www.whitesourcesoftware.com/vse_whitesource_bolt//#activate){:target="_blank"}
 
 ![ActivateWhiteSourceBolt](images/MyVisualStudio.png)
 
-
-In your Team project, under **Pipelines** section, go to **White Source Bolt** tab and activate **14-days** [trial license](https://www.whitesourcesoftware.com/whitesource_bolt_visualstudio_2017/#activate){:target="_blank"}
+In your Azure DevOps Project, under **Pipelines** section, go to **White Source Bolt** tab, provide your **Work Email**, **Company Name** and click *Get Started* button to start using the *Free* version.
 
 ![Dev_Essentials](images/white3.png)
 
@@ -50,9 +49,9 @@ Upon activation, the below message is displayed.
 
 ## Exercise 2: Trigger a build
 
-Now you have a **Java code** provisioned by the Azure DevOps demo generator. You will use **WhiteSource Bolt** extension to check the vulnerable components present in this code.
+You have a **Java code** provisioned by the Azure DevOps demo generator. You will use **WhiteSource Bolt** extension to check the vulnerable components present in this code.
 
-1. Go to **Builds** section under **Pipelines** tab, and select the build definition **WhiteSourceBolt** and click on **Queue** to trigger a build.
+1. Go to **Builds** section under **Pipelines** tab, select the build definition **WhiteSourceBolt** and click on **Queue** to trigger a build.
 
    ![build-def](images/buildtrigger4.png)
 
@@ -67,6 +66,7 @@ Now you have a **Java code** provisioned by the Azure DevOps demo generator. You
 
     |Tasks|Usage|
     |----|------|
+    |![npm](images/npm.png) **npm**| Installs and publishes npm packages required for the build|
     |![maven](images/maven.png) **Maven**| builds Java code with the provided pom xml file|
     |![whitesourcebolt](images/whitesourcebolt.png) **WhiteSource Bolt**| scans the code in the provided working directory/root directory to detect security vulnerabilities, problematic open source licenses|
     |![copy-files](images/copy-files.png) **Copy Files**| copies the resulting JAR files from the source to the destination folder using match patterns|
@@ -76,7 +76,7 @@ Now you have a **Java code** provisioned by the Azure DevOps demo generator. You
 
    ![build_summary](images/buildsuccess.png)
 
-1. From the build summary, go to **WhiteSource Bolt Build Report** to see the vulnerability report.
+1. Navigate to **White Source Bolt** tab under **Pipelines** section and wait for the report generation of the completed build to see the vulnerability report.
 
    ![report](images/WhiteSourceBolt13.png)
 
