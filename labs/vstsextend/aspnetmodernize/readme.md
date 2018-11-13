@@ -27,7 +27,7 @@ In this lab, you will
 * Publish Docker Images to Azure Container Registry (ACR)
 * Push the new Docker images from ACR to Azure Container Instances (ACI)
 
-## Pre-requisites for the lab
+## Before you begin
 
 1. **Microsoft Azure Account**: You will need a valid and active Azure account for the Azure labs. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/){:target="_blank"}
 
@@ -93,7 +93,7 @@ In this exercise you will create a SQL azure instance and  migrate the applicati
 
   Now you have successfully migrated the application LocalDB to Azure SQL Db and also updated connection string to refer to Azure SQL.
 
-## Exercise 2: Add the Docker Support and run the application locally & debug within the Docker container using Visual Studio
+## Exercise 2: Add Docker Support and debug the application locally within the Docker container using Visual Studio
 
 1. Visual Studio has great support for Docker. In order to containerize the application using Docker, all you have to do is right-click on the project, select **Add->Container Orchestrator Support**
 
@@ -164,7 +164,7 @@ In this exercise you will create a SQL azure instance and  migrate the applicati
 
 ## Exercise 4: Push the new Docker images from ACR to Azure Container Instances (ACI)
 
-In this exercise you will create Azure Container Instance and push the new Docker image from ACR to Azure Container Instance.
+In this exercise, you will create Azure Container Instance and push the new Docker image from ACR to Azure Container Instance.
 
 You have options as to where the application can be deployed.
 
@@ -172,7 +172,7 @@ You have options as to where the application can be deployed.
 * Azure Container Service
 * Service Fabric
 
-In this Lab, you will use a Windows Container on Azure Container Instances (ACI) to bring up Nerd Dinner.
+You will use a Windows Container on Azure Container Instances (ACI) to bring up Nerd Dinner.
 
 1. You will use Azure CLI to create and push image to Azure Container Instance. Click on **Cloud Shell** in Azure portal.
 
@@ -206,3 +206,7 @@ In this Lab, you will use a Windows Container on Azure Container Instances (ACI)
     Once the **State** of the container is **Running** you can access the deployed **Nerd Dinner** application using **IP address**. Copy the **IP address** and paste in the browser to see the application running.
 
     ![finaloutput](images/finaloutput.png)
+
+## Summary
+
+You have learnt how to migrate from a LocalDB to SQL server in Azure and access the dockerised application from an Azure Container Instance.
