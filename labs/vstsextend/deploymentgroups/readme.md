@@ -1,8 +1,8 @@
 ---
-title: Multi-machine deployments using Azure DevOps
+title: Multi-machine deployments with Azure Pipelines
 layout: page
 sidebar: vsts2
-permalink: /labs/vstsextend/deploymentgroups/
+permalink: /labs/azuredevops/deploymentgroups/
 folder: /labs/vstsextend/deploymentgroups/
 ---
 
@@ -14,25 +14,25 @@ In the earlier versions of Azure DevOps, if the application needed to be deploye
 
 All the above challenges have been handled seamlessly with the introduction of the [Deployment Groups](https://docs.microsoft.com/en-us/vsts/build-release/concepts/definitions/release/deployment-groups/){:target="_blank"}.
 
-The Deployment Group installs a deployment agent on each of the target servers in the configured group and instructs the Release Management to gradually deploy the application to all these servers that belong to the Deployment Group. Multiple pipelines can be created for the roll-out deployments so that the latest version of the application could be provided in a phased manner to the multiple user groups for validating the newly introduced features.
+The Deployment Group installs a deployment agent on each of the target servers in the configured group and instructs the Release Pipeline to gradually deploy the application to all these servers that belong to the Deployment Group. Multiple pipelines can be created for the roll-out deployments so that the latest version of the application could be provided in a phased manner to the multiple user groups for validating the newly introduced features.
 
 ### What's covered in this lab?
 
 This lab covers the configuration of the deployment groups and details how the deployment groups could be used in the Azure DevOps.
 
-### Prerequisites for the lab
+### Before you begin
 
 1. Refer to the [Getting Started](../Setup/) page to know the prerequisites for this lab.
 
-1. Click on the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77368&Name=deploymentgroups) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
+1. Click the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77368&Name=deploymentgroups) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
 
 ## Setting up the Environment
 
 The following resources will be provisioned on the Azure using an ARM template:
 
-* Six Virtual Machines (VM) web servers with the IIS configured
+* Six Virtual Machines (VM) web servers with IIS configured
 
-* SQL server VM (db server) and
+* SQL server VM (db server)
 
 * Azure Network Load Balancer
 
@@ -46,37 +46,15 @@ The following resources will be provisioned on the Azure using an ARM template:
 
    ![Resources](images/resources.png)
 
-1. Click on the **DB server VM** to view the details.
+1. Click on the DB server VM which has **sqlSrv** in its name to view the details.
 
    ![DB Server](images/azure_resource.png)
 
-1. Make a note of the `DNS` name. This value will be required later during an exercise.
+1. Make a note of the `DNS` name. This value will be required later in an exercise.
 
    ![SQL DNS](images/sql_dns.png)
 
-## Exercise 1: Endpoint Creation
-
-Since the connections are not established during the project provisioning, the endpoints need to be configured manually.
-
-1. In the Azure DevOps home page, click on the below **Project Settings**. Click on the service connections under pipelines, and add a new service connection of type **Azure Resource Manager**. Specify the **Connection name**, select the **Subscription** from the dropdown and click on the **OK** button. This endpoint will be used to connect **Azure DevOps** and the **Azure**.
-
-   ![Service endpoint](images/services.png)
-
-   ![Connection details](images/azureresourcemanager.png)
-
-1. Create an endpoint of type **Azure Repos/Team Foundation Server**. Select the **Token based authentication** option and specify the following details:
-
-   * **Connection Name**: Provide any name
-
-   * **Connection Url**: URL of the Azure DevOps organization
-
-   * **Personal Access Token**: The Azure DevOps organizations Personal Access Token
-
-   > The configured endpoint will be used during the agent registration with the deployment groups to provide access to the Azure DevOps project.
-
-   ![Endpoint](images/tokenbased.png)
-
-## Exercise 2: Creating Deployment Groups and Configuring Release
+## Exercise 1: Creating Deployment Groups and Configuring Release
 
 The Azure DevOps makes it easier to organize the servers for deploying the applications. A deployment group is a collection of machines with a deployment agent on each of them. Each of the  machine interacts with the Azure DevOps to coordinate deployment of the app.
 
@@ -84,17 +62,15 @@ The Azure DevOps makes it easier to organize the servers for deploying the appli
 
    ![Deployment group](images/deploymentgroup.png)
 
-1. Provide a `Deployment group name`, and click on the **Create** button. The registration script generated will be displayed.
+1. Provide a `Deployment group name`, and click on the **Create** button. A registration script generated will be displayed. This script is run in an elevated command prompt which installs the agent and required configurations.
 
    ![Deployment group](images/deploymentgroup2.png)
 
    ![Registration script](images/dgscript.png)
 
-   > The target servers are available in the deployment group for deploying the application. The release definition uses **Phases** to deploy the application to the target servers.
+   > The target servers are available in the deployment group for deploying the application. The release definition uses **Phases** to deploy the application to the target servers. A [Phase](https://docs.microsoft.com/en-us/vsts/build-release/concepts/process/phases){:target="_blank"} is a logical grouping of the tasks that defines the runtime target on which the tasks will execute. A deployment group phase executes tasks on the machines defined in a deployment group.
 
-   > A [Phase](https://docs.microsoft.com/en-us/vsts/build-release/concepts/process/phases){:target="_blank"} is a logical grouping of the tasks that defines the runtime target on which the tasks will execute. A deployment group phase executes tasks on the machines defined in a deployment group.
-
-1. From the pipelines, click on the **Releases** option and edit the pipeline.
+1. From the pipelines, click on the **Releases** option and click **Edit**.
 
     ![Release](images/releasepipeline.png)
 
@@ -108,11 +84,20 @@ The Azure DevOps makes it easier to organize the servers for deploying the appli
 
    * **Agent Phase**: In this phase, the target servers will be associated to the deployment group using the Azure Resource Group Deployment task.
 
-     * **Azure Resource Group Deployment**: This task will automate the configuration of the deployment group agents to the web and db servers.
+     * **Azure Resource Group Deployment**: This task will automate the configuration of the deployment group agents to the web and db servers. 
 
-       ![Agent Phase](images/agent_phase.png)
+        ![Agent Phase](images/agent_phase.png)
+     
+       - Authorize the correct Azure subscription from the drop down or click `Manage` to associate a new Azure subscription. 
+       - Choose the **Resource Group** that was created previously.
+       - In the **Azure Pipelines/TFS service connection**, click **+ New** to create a new service connection of your Azure DevOps account. With the *Token Based Authentication*, provide the **Name, Azure DevOps URL and PAT**. Verify the connection successfully and click *OK*.
+       - Choose the **Team Project** that was provisioned with Azure DevOps Demo Generator tool.
+       - Choose the **Deployment Group**.
 
-   * **Database deploy phase**: This deployment group phase executes tasks on the machines defined in the deployment group. This phase is linked to the **db** tag.
+       ![Service Connection](images/serviceconnection1.png)
+       ![Resource Group Deploy](images/argd.png)
+
+   * **Deployment group phase**: This deployment group phase executes tasks on the machines defined in the deployment group. This phase is linked to the **db** tag. Choose the **Deployment Group** from the drop down.
 
      * **Deploy Dacpac**: This task is used to deploy the dacpac file to the DB server.
 
@@ -120,7 +105,7 @@ The Azure DevOps makes it easier to organize the servers for deploying the appli
 
        ![dacpac](images/dacpac.png)
 
-   * **IIS Deployment phase**: In this phase, the application will be deployed to the web servers using the below tasks. This phase is linked to **web** tag.
+   * **IIS Deployment phase**: In this phase, the application will be deployed to the web servers using the below tasks. This phase is linked to **web** tag. Choose the **Deployment Group** from the drop down. 
 
       * **Azure Network Load Balancer**: As the target machines are connected to the NLB, this task will disconnect the machines from the NLB prior to the deployment and reconnect them back to the NLB after the deployment.
 
