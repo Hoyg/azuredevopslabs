@@ -2,7 +2,7 @@
 title: Deploy PHP application to Azure App Service using Azure Pipelines
 layout: page
 sidebar: vsts2
-permalink: /labs/vstsextend/php/
+permalink: /labs/azuredevops/php/
 folder: /labs/vstsextend/php/
 ---
 
@@ -19,7 +19,7 @@ Upon completion of this lab, you will be able to:
 
   * Set up a PHP Azure DevOps Project with Azure DevOps Demo Generator
   * Set up an Azure CI Pipeline
-  * * Set up an Azure Web App within the Release pipeline and deploy the PHP Application to the Azure Web App
+  * Set up an Azure Web App within the Release pipeline and deploy the PHP Application to the Azure Web App
 
 
 ### Before you begin
