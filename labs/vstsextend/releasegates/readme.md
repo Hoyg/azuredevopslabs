@@ -2,7 +2,7 @@
 title: Release Safely - Expose changes to end users in a phased manner
 layout: page
 sidebar: vsts2
-permalink: /labs/vstsextend/releasegates/
+permalink: /labs/azuredevops/releasegates/
 folder: /labs/vstsextend/releasegates/
 ---
 
@@ -40,15 +40,15 @@ As an example:
 This lab covers the configuration of the deployment gates and details how to add control to Azure pipelines.
 You will configure a release definition with two environments for an Azure Web App. You will deploy to the **Canary** environment only when there are no blocking bugs for the app and mark the Canary environment complete only when there are no active alerts in Azure Monitor (Application Insights). 
 
-## Prerequisites
+## Before you begin
 
 1. Refer the [Getting Started](../Setup/) page to know the prerequisites for this lab.
 
-1. Click the [Azure DevOps Demo Generator](http://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77376&Name=AzureFunctions_BuildWorkshop) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
+1. Click the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77375&Name=ReleaseGates) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
 
 ## Setting up the Target Environment
 
-In this lab you will create two **Web Apps** in Azure to depict two environments **Canary** and **Production** to deploy the application.
+You will create two **Web Apps** in Azure to depict two environments **Canary** and **Production** to deploy the application.
 
 1. Go to [Azure portal](https://portal.azure.com) and click on **+New** and select **Web App**.
     
@@ -67,46 +67,22 @@ In this lab you will create two **Web Apps** in Azure to depict two environments
     
     ![select_ai](images/select_ai.png)
 
-1. Repeat **Step 1 & Step 2** to create Web App for production.
+1. Repeat **Step 1 & Step 2** to create Web App for **Production**.
 
-## Setting up the VSTS team project
-
-Use [VSTS Demo Generator](https://vstsdemogenerator.azurewebsites.net/?TemplateId=77375&Name=ReleaseGates) to provision the project on your VSTS account.
-
-   > ***VSTS Demo Generator** helps you create team projects on your VSTS account with sample content that include source code, work items, iterations, service endpoints, build and release definitions based on the template you choose during the configuration.*
-
-{% include note.html content= "This URL will automatically select **Release Gates** template in the demo generator. If you want to try other projects, use this [URL](https://vstsdemogenerator.azurewebsites.net/){:target=\"_blank\"} instead." %}
-     
-1. Click the **Sign In** button to log in with your VSTS account credentials.
-
-   ![vstsdemogen_signin](images/vstsdemogen_signin.png)
-
-1. Accept the request for permissions by clicking on the **Accept** button.
-
-    ![vstsdemogen_terms](images/vstsdemogen_terms.png)
-
-1. Select the **Team Services account** from the drop down for which you will generate the team project. Provide the **Project Name** and click **Create Project**.
-
-    ![vstsdemogen_createtp](images/VSTSdemogen_createtp.png)
-
-1. Once the project is provisioned, click the **URL** to navigate to the project.
-
-   ![vstsdemogen_create](images/vstsdemogen_create.png)
-
-
-## Exercise 1: Configure Release definition for deploying the application
+## Exercise 1: Configure Release pipeline
 
 ### Update Release Tasks
 
-1. Navigate to **Releases** under **Buid and Release** section and **Edit** release definition **PartsUnlimited-CD**. In this release definition, you have two environments viz. *Canary Environment* & *Production*. Click on **“1 phase, 3 tasks”** link for Canary Environment to update the tasks.
+1. Navigate to **Releases** under **Pipelines** and **Edit** the pipeline **PartsUnlimited-CD**. In this pipeline, you have two environments viz. *Canary Environment* & *Production*. Click on **“1 job, 3 tasks”** link for Canary Environment to update the tasks.
+   ![Edit Release](images/editrelease.png)
 
    ![canary_env](images/canary_env.png)
 
-1. Canary environment has 3 tasks which will publish the package to Azure Web App, enables continuous monitoring of the application after deployment and also Application Insights Alerts will be configured. Update the Azure Subscription, Web App and corresponding Application Insights details.
+1. Canary environment has 3 tasks which will publish the package to Azure Web App, enables continuous monitoring of the application after deployment and also Application Insights Alerts will be configured. 
 
    ![canary_release](images/canary_release.png)
 
-1. In Azure Subscription field, select your Azure subscription from the dropdown and click on **Authorize**. Provide your credentials to complete the authorization to your Azure account.
+1. In Azure Subscription field, select your Azure subscription from the dropdown and click on **Authorize**. Provide your credentials, if required, to complete the authorization to your Azure account.
 
    ![azure_subscription](images/azure_subscription.png)
 
@@ -120,7 +96,7 @@ Use [VSTS Demo Generator](https://vstsdemogenerator.azurewebsites.net/?TemplateI
 
    ![prod_release](images/prod_release.png)
 
-1. Navigate to **Builds** tab under **Build and Release** section and **Queue new build** for the build definition **PartsUnlimited-CI**.
+1. Navigate to **Builds** under **Pipelines** and **Queue new build** for the build definition **PartsUnlimited-CI**.
 
    ![queue_build](images/queue_build.png)
 
@@ -132,15 +108,17 @@ Use [VSTS Demo Generator](https://vstsdemogenerator.azurewebsites.net/?TemplateI
 
    ![release1_complete](images/release1_complete.png)
 
-1. This would automatically hook the Web App with Application Insights and configure the Alerts in Azure under *CanaryRelease* Application Insights **Alerts (classic)** section.
+1. This will automatically hook the Web App with Application Insights and configure the Alerts in Azure under *CanaryRelease* Application Insights **Alerts** section. Click **View classic alerts** to view the metrics.
 
    ![ai_alerts](images/ai_alerts.png)
+
+   ![ai_alerts](images/ai_alerts1.png)
 
 ## Exercise 2: Configure Deployment Gates.
 
 ### Enabling Pre-deployment Gate
 
-1. Go to **Releases** and **Edit** release definition **PartsUnlimited-CD**.
+1. Edit the release pipeline **PartsUnlimited-CD** in *Releases* under **Pipelines**.
 
    ![edit_release](images/edit_release.png)
 
@@ -153,14 +131,14 @@ Use [VSTS Demo Generator](https://vstsdemogenerator.azurewebsites.net/?TemplateI
 
    ![VSTS Demo Generator](images/enable_gates.png)
 
-1. Add yourself as an **Approver** and by default, user requesting a release or deployment should not approve. However for the purpose of this lab, uncheck this condition.
+1. Add yourself as an **Approver** and by default, user requesting a release or deployment should not approve. However for the purpose of this lab, **uncheck** this condition.
 
    ![add_approver](images/add_approver.png) 
 1. Add **Query Work Items** to the Gates.
 
    ![querywi](images/querywi.png)
 
-1. Select **Bugs** under Query. As maximum threshold is set to "0", if this query returns any active bug work Item, the release gate will fail.
+1. Select **Bugs** under **Shared Queries** in the Query field. As maximum threshold is set to "0", if this query returns any active bug work Item, the release gate will fail.
 
    ![qwi](images/qwi.png)
 
@@ -198,10 +176,12 @@ Use [VSTS Demo Generator](https://vstsdemogenerator.azurewebsites.net/?TemplateI
 
     >The sampling interval and timeout work together so that the gates will call their functions at suitable intervals and reject the deployment if they don't succeed during the same sampling interval within the timeout period. 
 
+1. Click **Save** to save the changes.
+
 ## Exercise 3: Update and deploy application after adding release gates 
 In this exercise, you will make a small code change in the application and commit to the repository which in-turn triggers build and release.
 
-1. Go to **Code** tab. Navigate to path *"src/PartsUnlimitedWebsite/Views/Home/Index.cshtml"* and modify the content to ***"30%"*** from ***"20%"*** in **line 30**.
+1. Go to **Repos** and click *Files*. Navigate to the path *"src/PartsUnlimitedWebsite/Views/Home/Index.cshtml"* and modify the content to ***"30%"*** from ***"20%"*** in **line 30**.
 
    ![update_key](images/update_key.png)
 
@@ -209,14 +189,14 @@ In this exercise, you will make a small code change in the application and commi
    
    ![commit](images/commit.png)
 
-1. The build will automatically trigger as we have *Continuous Integration (CI)* trigger type enabled in the build definition. Once the build succeeds, navigate to the **Releases** tab. You will notice the release have been triggered after the successful build.
+1. The build will automatically trigger as we have *Continuous Integration (CI)* trigger type enabled in the build pipeline. Once the build succeeds, navigate to the **Releases** tab. You will notice the release have been triggered after the successful build.
 
 1. Go to release **Logs** to see the progress. You will see **Query Work Items** gate have failed in delay before evaluation, which indicates there are active bugs. These bugs should be closed in-order to proceed further. Next sampling time will be after 5 minutes.
 
    ![log1](images/log1.png) 
   
  
-1. Navigate to **Queries** under **Work** tab.
+1. Navigate to **Queries** under **Boards** tab.
 
    ![goto_queries](images/goto_queries.png)
 
@@ -256,7 +236,7 @@ Azure Portal and click on **Browse**.
 
    ![alert_triggered](images/alert_triggered.png)
 
-1. As there was an alert triggered by the exception, **Query Azure Monitor** gate have failed. However, the gate is still under delay period, you should wait for next evaluation to proceed.
+1. As there was an alert triggered by the exception, **Query Azure Monitor** gate failed. However, the gate is still under delay period, you should wait for next evaluation to proceed.
 
    ![qamlog](images/qamlog.png)
    
@@ -272,4 +252,4 @@ Gates ensures that the release waits for you to react to the feedback and fix an
 
 If a new release is required to fix the issues, then you can cancel the deployment and manually abandon the current release.
 
-So here are release gates, enabling teams to release applications with higher confidence with fewer manual steps. There is now a built-in audit of all the necessary criteria for a deployment being met.    
+So here are release gates, enabling teams to release applications with higher confidence with fewer manual steps. There is now a built-in audit of all the necessary criteria for a deployment being met.
