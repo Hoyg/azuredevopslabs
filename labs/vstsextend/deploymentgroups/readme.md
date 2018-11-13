@@ -62,7 +62,7 @@ The Azure DevOps makes it easier to organize the servers for deploying the appli
 
    ![Deployment group](images/deploymentgroup.png)
 
-1. Provide a `Deployment group name`, and click on the **Create** button. A registration script generated will be displayed. This script is run in an elevated command prompt which installs the agent and required configurations.
+1. Provide a `Deployment group name`, and click on the **Create** button. A registration script generated will be displayed.
 
    ![Deployment group](images/deploymentgroup2.png)
 
@@ -119,11 +119,11 @@ The Azure DevOps makes it easier to organize the servers for deploying the appli
 
 1. Select the **Disconnect Azure Network Load Balancer** task and provide the following details:
 
-   * **Azure Subscription**: An ARM Endpoint created in the **Exercise 1**
+   * **Azure Subscription**: Choose the associated Azure subscription from the drop down.
 
-   * **Resource Group**: Name of the Resource Group which was created while provisioning the environment
+   * **Resource Group**: Name of the Resource Group which was created while provisioning the environment.
 
-   * **Load Balancer Name**: Select the name from the dropdown
+   * **Load Balancer Name**: Select the name from the dropdown.
 
    * **Action**: Set the action to **Disconnect Primary Network Interface**
 
@@ -141,7 +141,7 @@ The Azure DevOps makes it easier to organize the servers for deploying the appli
 
     ![Connect load balancer](images/connect_lb.png)
 
-1. Click on the **Variables** tab and select the **Process Variables** option. Replace the value of the **DefaultConnectionString** variable with the `SQL DNS` value noted earlier.
+1. Click on the **Variables** tab and select the **Pipeline Variables** option. Replace the value of the **DefaultConnectionString** variable with the `SQL DNS` value noted earlier.
 
    ![Release variable](images/release_variable.png)
 
@@ -149,11 +149,11 @@ The Azure DevOps makes it easier to organize the servers for deploying the appli
 
    ![New Release](images/release.png)
 
-1. Once the release is completed, the deployments will be done to the DB and Web servers. Click on the logs to view the release summary.
+1. Once the release is completed, the deployments will be completed in the DB and Web servers. Click on the logs to view the release summary.
 
     ![Release Summary](images/release_summary.png)
 
-1. In the Azure Portal, click on the **DNS** of any web application instance, to access the application.
+1. In the Azure Portal, click the **DNS** of any web application instance, to access the application.
 
    {% include important.html content= "The [**Azure Load Balancer**](https://docs.microsoft.com/en-us/azure/load-balancer/load-balancer-overview){:target=\"_blank\"} will distribute incoming traffic among healthy instances of servers defined in a load-balanced set. Hence the **DNS** of all web server instances will be the same." %}
 
