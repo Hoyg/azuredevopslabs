@@ -2,7 +2,7 @@
 title: Managing Technical Debt using VSTS and SonarQube
 layout: page
 sidebar: vsts2
-permalink: /labs/vstsextend/sonarqube/
+permalink: /labs/azuredevops/sonarqube/
 folder: /labs/vstsextend/sonarqube/
 ---
 
@@ -12,7 +12,7 @@ Last updated : {{ "now" | date: "%b %d,%Y" }}
 
 Technical debt is the set of problems in a development effort that make forward progress on customer value inefficient. Technical debt saps productivity by making code hard to understand, fragile, time-consuming to change, difficult to validate, and creates unplanned work that blocks progress. Unless they are managed, technical debt can accumulate and hurt the overall quality of the software and the productivity of the development team in the long term
 
-[SonarQube](https://www.sonarqube.org/){:target="_blank"} an open source platform for continuous inspection of code quality to perform automatic reviews with static analysis of code to:
+[SonarQube](https://www.sonarqube.org/){:target="_blank"} is an open source platform for continuous inspection of code quality to perform automatic reviews with static analysis of code to:
 
 - Detect Bugs
 - Code Smells
@@ -21,28 +21,16 @@ Technical debt is the set of problems in a development effort that make forward 
 
 ### What's covered in this lab
 
-In this lab, you will learn how to setup SonarQube on Azure and to integrate Visual Studio Team Services
+In this lab, you will learn how to setup SonarQube on Azure and to integrate Azure Pipelines
 
 - Provision SonarQube server from an Azure template
 - Setup SonarQube project
-- Setup a VSTS project and CI build to integrate with SonarQube
+- Setup an Azure DevOps project and CI build pipeline to integrate with SonarQube
 - Analyze SonarQube reports
 
-### Prerequisites for the lab
+### Before you begin
 
-1. **Microsoft Azure Account**: You will need a valid and active Azure account for the Azure labs. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/){:target="_blank"}
-
-    - If you are an active Visual Studio Subscriber, you are entitled for a $50-$150 credit per month. You can refer to this [link](https://azure.microsoft.com/en-us/pricing/member-offers/msdn-benefits-details/){:target="_blank"} to find out more information about this including how to activate and start using your monthly Azure credit.
-
-    - If you are not a Visual Studio Subscriber, you can sign up for the FREE [Visual Studio Dev Essentials](https://www.visualstudio.com/dev-essentials/){:target="_blank"} program to create a **Azure free account** (includes 1 year of free services, $200 for 1st month).
-
-1. You will need a **Visual Studio Team Services Account**. If you do not have one, you can sign up for free [here](https://www.visualstudio.com/products/visual-studio-team-services-vs){:target="_blank"}
-
-1. You will need a **Personal Access Token** to set up your project using the **VSTS Demo Generator**. Please see this [article](https://docs.microsoft.com/en-us/vsts/accounts/use-personal-access-tokens-to-authenticate){:target="_blank"} for instructions to create your token.
-
-    {% include note.html content= "You should treat Personal Access Tokens like passwords. It is recommended that you save them somewhere safe so that you can re-use them for future requests." %}
-
-## Setting up the Environment
+1. Refer the [Getting Started](../Setup/) before you begin to the exercises.
 
 1. Click the **Deploy To Azure** button below to provision SonarQube Server on Azure VM.
 
