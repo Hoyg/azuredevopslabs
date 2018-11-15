@@ -191,4 +191,4 @@ The link will open the **MyShuttle** project in the SonarQube Dashboard.  Under 
 
 ## Summary
 
-With  the **SonarQube** extension for **Visual Studio Team Services**, you can embed automated testing in your CI/CD pipleine to automate the measurement of your technical debt including code semantics, testing coverage, vulnerabilities. etc.
+With  the **SonarQube** extension for **Azure DevOps**, you can embed automated testing in your Azure Pipelines to automate the measurement of your technical debt including code semantics, testing coverage, vulnerabilities. etc.
