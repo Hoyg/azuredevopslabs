@@ -20,21 +20,7 @@ This lab shows how to deploy a **Python** application to **Azure App Service** u
 
 1. Click the [Azure DevOps Demo Generator](https://azuredevopsdemogenerator.azurewebsites.net/?Name=Python&TemplateId=77369) link and follow the instructions in [Getting Started](../Setup/) page to provision the project to your **Azure DevOps**.
 
-## Exercise 1: Endpoint Creation
-
-Since the connections are not established during project provisioning, you will manually create the endpoints.
-
-In **Azure DevOps**, navigate to **Project settings**, under **Pipelines** select **Service connections**, click on **+ New service connection** and select **Azure Resource Manager**. Specify connection name, select your subscription from the drop down and click on OK. We use this endpoint to connect Azure DevOps with Azure.
-
-   ![service_endpoint1](images/service_endpoint1.png)
-
-   You will be prompted to authorize this connection with Azure credentials.
-
-   {% include note.html content= "Disable pop-up blocker in your browser if you see a blank screen after clicking OK, and retry the step." %}
-
-   ![service_endpoint2](images/service_endpoint2.png)
-
-## Exercise 2: Configure Release
+## Exercise 1: Configure Release
 
 You will provision the resources on **Azure** using ARM template in the **release definition**.
 
@@ -42,7 +28,7 @@ You will provision the resources on **Azure** using ARM template in the **releas
 
    ![releaseedit](images/releaseedit.png)
 
-1. Go to **Tasks** and select **Dev** environment, under **Azure Deployment** task, update **Azure subscription** and **Location**.
+1. Go to **Tasks** and select **Dev** environment, under **Azure Deployment** task, authorize the **Azure subscription** and select the **Location**.
 
    ![azure_sub](images/azure_sub.png)
 
@@ -75,7 +61,7 @@ You will provision the resources on **Azure** using ARM template in the **releas
     </tr>
    </table>
 
-## Exercise 3: Trigger CI-CD with code change
+## Exercise 2: Trigger Build and Release pipeline with code change
 
 **Python** is an interpreted language, and hence compilation is not required. We will archive the files in the build and use the package in the release for deployment. Update the code to trigger CI-CD using **Hosted build agent**.
 
@@ -126,7 +112,7 @@ You will provision the resources on **Azure** using ARM template in the **releas
 
    ![release_succesful](images/release_succesful.png)
 
-1. Once the Release is succeeded, login to [Azure Portal](https://portal.azure.com){:target="_blank"} and go to  the **Resource Group** with the name **Python**. You will see the resources **App Service** and **App Service Plan**.
+1. Once the Release succeeds, login to [Azure Portal](https://portal.azure.com){:target="_blank"} and go to  the **Resource Group** with the name **Python**. You will see the resources **App Service** and **App Service Plan**.
 
    ![azure_portal](images/azure_portal.png)
 
