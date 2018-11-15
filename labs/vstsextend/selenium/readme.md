@@ -14,8 +14,6 @@ Last updated : {{ "now" | date: "%b %d,%Y" }}
 
 In this lab, you will learn how to execute selenium testcases on a C# web application, as part of the Azure DevOps Release pipeline.
 
-If you are not familiar with creating Selenium UI tests in Visual Studio, you may refer to this lab  [click here](https://www.azuredevopslabs.com/labs/tfs/codedui/){:target="_blank"}
-
 ### Before you begin
 
 1. Refer the [Getting Started](../Setup/) before you follow the below exercises.
