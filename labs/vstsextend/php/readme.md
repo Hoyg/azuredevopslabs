@@ -73,10 +73,6 @@ The **Azure DevOps Demo Generator** creates a Git repository with code in your A
       <td>Since PHP is an interpreted language, there is no need to compile the code. Instead, the code is archived into a Zip file.</td>
     </tr>
     <tr>
-      <td><img src="images/copyfiles.png"> <b>Copy Files</b></td>
-      <td>Copies the Zip file to the artifact folder</td>
-    </tr>
-    <tr>
       <td><img src="images/PublishArtifact.png"> <b>Publish Build Artifacts</b></td>
       <td>Publish the build artifacts so that it is available to the Release pipeline</td>
     </tr>
