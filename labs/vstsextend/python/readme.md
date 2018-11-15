@@ -28,7 +28,14 @@ You will provision the resources on **Azure** using ARM template in the **releas
 
    ![releaseedit](images/releaseedit.png)
 
-1. Go to **Tasks** and select **Dev** environment, under **Azure Deployment** task, authorize the **Azure subscription** and select the **Location**.
+1. Go to **Tasks** and select **Dev** environment, under **Azure Deployment** task, authorize the **Azure subscription**. There are 2 ways of selecting the Azure subscription. 
+
+   - If your subscription is not listed or if you want to use an existing service principal, click the Manage link. Click on the **+New Service Connection** button and select the Azure Resource Manager option. Provide Connection name, select the Azure Subscription from the list and then click on the Ok button. The Azure credentials will be required to authorize the connection.
+
+    - If the subscription is already listed, select the Azure subscription from the list and click **Authorize**.
+
+
+1. Select the **Location**.
 
    ![azure_sub](images/azure_sub.png)
 
