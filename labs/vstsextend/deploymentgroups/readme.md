@@ -58,6 +58,8 @@ The following resources will be provisioned on the Azure using an ARM template:
 
 The Azure DevOps makes it easier to organize the servers for deploying the applications. A deployment group is a collection of machines with a deployment agent on each of them. Each of the  machine interacts with the Azure DevOps to coordinate deployment of the app.
 
+ > Since there is no configuration change required for the build pipeline, the build will be triggered automatically after the project is provisioned.
+
 1. From the pipelines, select the [**Deployment Groups**](https://docs.microsoft.com/en-us/vsts/build-release/concepts/definitions/release/deployment-groups/){:target="_blank"} option. Click on the **Add deployment group** button to configure.
 
    ![Deployment group](images/deploymentgroup.png)
@@ -164,6 +166,10 @@ The Azure DevOps makes it easier to organize the servers for deploying the appli
 1. The deployed web application will be launched and the various features can be browsed.
 
     ![Web application](images/application.png)
+
+## Clean up resources
+
+Since the lab uses multiple virtual machines and other resources, ensure you delete the resource group after the lab completion to avoid incurring charges.
 
 ## Summary
 
