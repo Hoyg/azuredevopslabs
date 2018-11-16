@@ -16,7 +16,7 @@ This lab outlines the process, to compile a Docker-based ASP.NET Core web applic
 
 One of the biggest advantage to use AKS is that instead of creating resources in cloud you can create resources and infrastructure inside Azure Kubernetes Cluster through Deployments and Services manifest files. In this lab, the **mhc-aks.yaml** manifest file consists of definitions to spin up Deployments and Services such as **Load Balancer** in the front and **Redis Cache** in the backend. Our application will be running in the mhc-front pod along with the Load Balancer.
 
-If you are new to Kubernetes, refer to bottom of this page for terminologies used in this lab.
+If you are new to Kubernetes, [click here](documentation/readme.md){:target="_blank"} for description of terminology used in this lab.
 
 ### What's covered in this lab
 
@@ -253,25 +253,6 @@ In this exercise, let us trigger a build manually and upon completion, an automa
     ![AKS Dashboard](images/aksdashboard.png)
 
     **Note**: Under Release Definition, you can optionally disable **Execute Azure SQL: DacpacTask** and **Create Deployments & Services in AKS** tasks as they are required to run only once in the beginning.
-
-
-If you are new to Kubernetes, below are the descriptions for the terminolgy used in the lab document:
-
-[**Docker**](https://www.docker.com/){:target="_blank"}: Docker is a software technology, that provides operating-system-level virtualization to easily deploy applications in a sandbox (called containers) to run on the Linux.
-
-[**Images**](https://docs.docker.com/engine/docker-overview/#docker-objects){:target="_blank"}: An image is a read-only template, with the necessary instructions required for the application to run.
-
-[**Containers**](https://docs.docker.com/engine/docker-overview/#docker-objects){:target="_blank"}: Provides an isolated environment in which an app along with its environment is being run.
-
-[**Kubernetes**](https://kubernetes.io/){:target="_blank"}: Kubernetes is an open source system for managing containerized applications across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
-
-[**Pods**](https://kubernetes.io/docs/concepts/workloads/pods/pod/){:target="_blank"}: A Pod is the basic building block of Kubernetes and represents a executable unit of the work. A Pod usually contains a single container.
-
-[**Services**](https://kubernetes.io/docs/concepts/services-networking/service/){:target="_blank"}: A service tells other pods about the services that your application provides.
-
-[**Deployments**](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/){:target="_blank"}: A Deployment controller provides declarative updates for Pods
-
-[**Kubernetes Manifest file**](https://kubernetes.io/docs/reference/kubectl/cheatsheet/){:target="_blank"}: Kubernetes manifests with deployments, whereas services and pods can be defined in json or yaml. The file extensions .yaml, .yml, and .json can be used.
 
 ## Summary
 
