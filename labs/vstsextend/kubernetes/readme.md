@@ -10,27 +10,29 @@ Last updated : {{ "now" | date: "%b %d, %Y" }}.
 
 ## Overview
 
-This lab outlines the process, to compile a Docker-based ASP.NET Core web application and deploy it to a **Kubernetes** cluster running on **Azure Container Service (AKS)** using **Azure DevOps**.
-
 [**Azure Kubernetes Service (AKS)**](https://azure.microsoft.com/en-us/services/container-service/){:target="_blank"} is the quickest way to use Kubernetes on Azure. AKS provides capabilities to deploy and manage Docker containers using Kubernetes. With AKS, customers automatically get the benefits of the open source Kubernetes without the complexity and the operational overhead. Azure DevOps helps in creating Docker images for faster deployments and reliability using the continuous build option.
 
-One of the biggest advantage to use AKS is that instead of creating resources in cloud you can create resources and infrastructure inside Azure Kubernetes Cluster through Deployments and Services manifest files. In this lab, the **mhc-aks.yaml** manifest file consists of definitions to spin up Deployments and Services such as **Load Balancer** in the front and **Redis Cache** in the backend. Our application will be running in the mhc-front pod along with the Load Balancer.
+One of the biggest advantage to use AKS is that instead of creating resources in cloud you can create resources and infrastructure inside Azure Kubernetes Cluster through Deployments and Services manifest files.
+
+### Lab Scenario
+
+This lab uses a Docker-based ASP.NET Core web application - **MyHealthClinic** and is deployed to a **Kubernetes** cluster running on **Azure Container Service (AKS)** using **Azure DevOps**.There is a  **mhc-aks.yaml** manifest file which consists of definitions to spin up Deployments and Services such as **Load Balancer** in the front and **Redis Cache** in the backend. The MHC application will be running in the mhc-front pod along with the Load Balancer.
 
 If you are new to Kubernetes, [click here](documentation/readme.md){:target="_blank"} for description of terminology used in this lab.
 
 ### What's covered in this lab
 
-In this lab, the following tasks will be performed:
+The following tasks will be performed:
 
 * Create an Azure Container Registry (ACR), AKS and Azure SQL server
 
-* Provision the Azure DevOps Team Project with a .NET Core application using the [Azure DevOps Demo Generator](https://azure devopsdemogenerator.azurewebsites.net/?Name=aks&templateId=77372){:target="_blank"} tool
+* Provision the Azure DevOps Team Project with a .NET Core application using the Azure DevOps Demo Generator tool.
 
 * Configure application and database deployment, using Continuous Deployment (CD) in the Azure DevOps
 
 * Initiate the build to automatically deploy the application
 
-## Pre-requisites for the lab
+## Before you begin
 
 1. Refer the [Getting Started](../Setup/) page to know the prerequisites for this lab.
 
@@ -108,7 +110,7 @@ The following azure resources need to be configured for this lab:
 
    ![Deploy to Azure](images/deploymentsucceeded.png)
 
-1. The following components - **Storage account**, **Container Registry**, **Container Service**, **SQL Server** along with **SQL Database** are deployed. Access each of these components individually and make a note of the details to be used in Exercise 1.
+1. The following components - **Storage account**, **Container Registry**, **Container Service**, **SQL Server** along with **SQL Database** are deployed. Access each of these components individually and make a note of the details which will be used in Exercise 1.
 
    ![Deploy to Azure](images/azurecomponents.png)
 
@@ -116,15 +118,15 @@ The following azure resources need to be configured for this lab:
 
    ![Deploy to Azure](images/getdbserverurl.png)
 
-1. Navigate back to the resource group, select the created container registry and make a note of the **Login server** name.
+1. Navigate to the resource group, select the created container registry and make a note of the **Login server** name.
 
     ![Deploy to Azure](images/getacrserver.png)
 
 Since all the required azure components are now created, the Azure DevOps team project can be created.
 
-## Exercise 1: Configure Build and Release definitions
+## Exercise 1: Configure Build and Release pipeline
 
-Make sure that you have created the AKS project in your Azure DevOps account through [Azure DevOps Demo Generator](http://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77372&Name=Aks) (as mentioned in pre-requisites). We will manually map Azure resources such as AKS and Azure Container Registry to the build and release definitions.
+Make sure that you have created the AKS project in your Azure DevOps account through [Azure DevOps Demo Generator](http://azuredevopsdemogenerator.azurewebsites.net/?TemplateId=77372&Name=AKS) (as mentioned in pre-requisites). We will manually map Azure resources such as AKS and Azure Container Registry to the build and release definitions.
 
 1. Select **Builds** section under the **Pipelines** hub and **Edit** the build definition **MyHealth.AKS.Build**.
 
@@ -172,7 +174,7 @@ Make sure that you have created the AKS project in your Azure DevOps account thr
 
     ![update_CD3](images/update_CD3.png)
 
-1. In the **AKS deployment** phase, under the **Create Deployments & Services in AKS** task, update the **Azure Subscription**, **Resource Group** and **Kubernetes cluster** from the dropdown. Expand the **Secrets** section and update the parameters for **Azure subscription** and **Azure Container Registry** from the dropdown. Repeat similar steps for **Update image in AKS** task.
+1. In the **AKS deployment** phase, under the **Create Deployments & Services in AKS** task, update the **Azure Subscription**, **Resource Group** and **Kubernetes cluster** from the dropdown. Expand the **Secrets** section and update the parameters for **Azure subscription** from the dropdown. Repeat similar steps for **Update image in AKS** task.
 
     ![update_rd1](images/update_rd1.png)
 
@@ -194,7 +196,7 @@ Make sure that you have created the AKS project in your Azure DevOps account thr
 
 In this exercise, let us trigger a build manually and upon completion, an automatic deployment of the application will be triggered. Our application is designed to be deployed in the pod with the **load balancer** in the front-end and **Redis cache** in the back-end.
 
-1. Click on **Pipelines** tab and select the **Queue** button.
+1. Click on **Pipelines** tab and select the **Queue** button under **Builds** section.
 
     ![manualbuild](images/manualbuild.png)
 
@@ -220,7 +222,7 @@ In this exercise, let us trigger a build manually and upon completion, an automa
 
          ![Kubernetes Service Endpoint](images/azlogin.png)
 
-    1. Type **`az aks get-credentials --resource-group yourResourceGroup --name yourAKSname`** in the command prompt to get the access credentials for the Kubernetes cluster.
+    1. Type **`az aks get-credentials --resource-group yourResourceGroup --name yourAKSname`** in the command prompt to get the access credentials for the Kubernetes cluster. Replace the variables `yourResourceGroup` and `yourAKSname` with the actual values.
 
          ![Kubernetes Service Endpoint](images/getkubeconfig.png)
 
