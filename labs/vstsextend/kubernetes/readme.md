@@ -40,7 +40,9 @@ The following tasks will be performed:
 
 ## Preparing the user machine
 
-This lab requires all the pre-requisite executables to be installed and configured in an **Administrator** mode on the user machine. If the administrative privileges are not available on the user machine, it is suggested to create a Windows Virtual Machine (VM) on Azure and follow the exercises in the VM.
+This lab requires all the pre-requisite executables to be installed and configured in an **Administrator** mode on the user machine. 
+
+**Note**: If you do not have the administrative privileges on your machine, it is suggested to create a Windows Virtual Machine (VM) on Azure and follow the exercises in the VM.
 
 1. Spin up a [Windows virtual machine on Azure](https://portal.azure.com/#create/Microsoft.WindowsServer2016Datacenter-ARM){:target="_blank"}.
 
@@ -170,7 +172,7 @@ Make sure that you have created the AKS project in your Azure DevOps account thr
 
    ![releasetasks](images/releasetasks.png)
 
-1. In the **Dev** environment, under the **DB deployment** phase, update the **Azure Subscription** value from the dropdown for **Execute Azure SQL: DacpacTask** task.
+1. In the **Dev** environment, under the **DB deployment** phase, select **Azure Resource Manager** from the drop down for **azure service connection type**,  update the **Azure Subscription** value from the dropdown for **Execute Azure SQL: DacpacTask** task.
 
     ![update_CD3](images/update_CD3.png)
 
