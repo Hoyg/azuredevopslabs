@@ -90,9 +90,7 @@ This section helps you with the steps to enable **7pace Timetracker** for your A
 
    ![AddTimeRecord](images/AddTimeRecord.png)
 
-1. Fill in the fields and click **Save**.
-
-   Time is added directly to the work item.
+1. Fill in the fields and click **Save**. Time is added directly to the work item.
 
 ## Exercise 2: How to Record Your Time with Timetracker’s Windows and Web Clients
 
@@ -127,13 +125,11 @@ As mentioned in **Exercise 1**, when you open a work item and click the **Start 
 
 1. Click on the **Time** tab of your Azure DevOps section and select any Timetracker sub-tab:
 
-   ![TimetrackerSubtab](images/TimetrackerSubtab.png)
-
    You’ll notice that time tracking has also kicked off within Timetracker’s server side Web Client.
 
    >Note: If you have not logged any time with the Web Client in the current day yet, the "TODAY" field will display 00:00 (this field updates as you track time with the Web Client and reflects time tracked on all work items within the current calendar day). If you have previously tracked on an item, the last item you tracked will display on the minimized Web Client bar and you can just click the "Start Tracking" button to resume tracking. "Your tracker is not currently running" will display if you are not tracking time.  
 
-1. Click anywhere on the gray area of the tracker bar. The Web Client fields expand and display:
+1. Click anywhere on the grey area of the tracker bar. The Web Client fields expand and display:
 
     ![WebClientFields](images/WebClientFields.png)
 
@@ -161,9 +157,7 @@ If you have previously tracked time on a work item(s), the prediction feature of
 
 16. Click the **Close** button.
 
-     ![minimizedTracker](images/minimizedTracker.png)
-
-    The tracker fields are minimized, allowing you to continue your work. The current work item number and description displays in the **Tracking** field, as well as the **Activity Type** you selected (if any), the total length of time you have worked on this item in the current calendar day (**TODAY** field), and the current length of time you have tracked on the item since hitting **Start Tracking**(to the right of the **TODAY** field).
+      The tracker fields are minimized, allowing you to continue your work. The current work item number and description displays in the **Tracking** field, as well as the **Activity Type** you selected (if any), the total length of time you have worked on this item in the current calendar day (**TODAY** field), and the current length of time you have tracked on the item since hitting **Start Tracking**(to the right of the **TODAY** field).
 
 ## Exercise 3: How to Record Your Time with Timetracker’s Monthly, Timesheet (Add New Time, Timesheet Cells and List Editor) and Times Explorer Pages
 
