@@ -176,7 +176,7 @@ Make sure that you have created the AKS project in your Azure DevOps account thr
 
     ![update_CD3](images/update_CD3.png)
 
-1. In the **AKS deployment** phase, under the **Create Deployments & Services in AKS** task, update the **Azure Subscription**, **Resource Group** and **Kubernetes cluster** from the dropdown. Expand the **Secrets** section and update the parameters for **Azure subscription** from the dropdown. Repeat similar steps for **Update image in AKS** task.
+1. In the **AKS deployment** phase, under the **Create Deployments & Services in AKS** task, update the **Azure Subscription**, **Resource Group** and **Kubernetes cluster** from the dropdown. Expand the **Secrets** section and update the parameters for **Azure subscription** and **Azure container registry** from the dropdown. Repeat similar steps for **Update image in AKS** task.
 
     ![update_rd1](images/update_rd1.png)
 
